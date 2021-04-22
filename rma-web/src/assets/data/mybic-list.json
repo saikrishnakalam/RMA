@@ -1,0 +1,24 @@
+[
+  {
+      "id": 1,
+      "bicCode": "ABBANL1A",
+      "branchCode": "ABBANL1A",
+      "branchArea": "Amsterdam",
+      "branchCountry": "The Netherlands"
+  },
+  {
+      "id": 2,
+      "bicCode": "ABBANL2A",
+      "branchCode": "ABBANL2A",
+      "branchArea": "Amsterdam",
+      "branchCountry": "The Netherlands"
+  },
+  {
+      "id": 3,
+      "bicCode": "ABBANL3A",
+      "branchCode": "ABBANL3A",
+      "branchArea": "Amsterdam",
+      "branchCountry": "The Netherlands"
+
+  }
+]

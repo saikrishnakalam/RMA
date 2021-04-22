@@ -1,0 +1,99 @@
+<!-- Unnamed (Rectangle) -->
+<div id="u553" class="ax_default swift_heading_3">
+  <div id="u553_div" class=""></div>
+  <div id="u553_text" class="text ">
+    <p><span>{{counterPartySearchResults.length}} results</span></p>
+  </div>
+</div>
+<!-- Unnamed (Table) -->
+<div id="u521" class="ax_default">
+
+  <!-- Unnamed (Table Cell) -->
+  <div id="u522" class="ax_default swift_table_cell">
+    <img id="u522_img" class="img " src="assets/images/search_results/u522.png" />
+    <div id="u522_text" class="text ">
+      <p><span>Counterparty</span></p>
+    </div>
+  </div>
+
+  <!-- Unnamed (Table Cell) -->
+  <div id="u523" class="ax_default swift_table_cell">
+    <img id="u523_img" class="img " src="assets/images/search_results/u523.png" />
+    <div id="u523_text" class="text ">
+      <p><span>My BIC</span></p>
+    </div>
+  </div>
+
+  <!-- Unnamed (Table Cell) -->
+  <div id="u524" class="ax_default swift_table_cell">
+    <img id="u524_img" class="img " src="assets/images/search_results/u524.png" />
+    <div id="u524_text" class="text ">
+      <p><span>Incoming traffic</span></p>
+    </div>
+  </div>
+
+  <!-- Unnamed (Table Cell) -->
+  <div id="u525" class="ax_default swift_table_cell">
+    <img id="u525_img" class="img " src="assets/images/search_results/u524.png" />
+    <div id="u525_text" class="text ">
+      <p><span>Outgoing traffic</span></p>
+    </div>
+  </div>
+  <!-- Unnamed (Horizontal Line) -->
+  <div id="u554" class="ax_default swift_line">
+    <img id="u554_img" class="img " src="assets/images/1_-_create_manually/u390.png" />
+  </div>
+  <!-- Results Table row -->
+  <div *ngFor="let counterparty of counterPartySearchResults">
+    <div id="u526" class="ax_default swift_table_cell" style="cursor: pointer;" (click)="showDetails(counterparty)">
+      <img id="u526_img" class="img " src="assets/images/search_results/u526.png" />
+      <div id="u526_text" class="text ">
+        <p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;color:#222222;">{{counterparty.counterPartyBic}} -
+            {{counterparty.counterPartyBicName}}</span></p>
+        <p>
+          <!-- Unnamed (Shape) -->
+          <span id="u544" class="ax_default icon">
+            <img id="u544_img" class="img " src="assets/images/search_results/u544.png" />
+          </span>
+          <span style="font-family:'Arial';font-weight:400;color:#666666; margin-left: 4px;"> {{counterparty.counterPartyBicCity}}, {{counterparty.counterPartyBicCountry}}</span>
+        </p>
+      </div>
+    </div>
+    <div id="u527" class="ax_default swift_table_cell">
+      <img id="u527_img" class="img" src="assets/images/search_results/u527.png">
+      <div id="u527_text" class="text ">
+        <p id="cache2" style=""><span style="color: rgb(34, 34, 34);" id="cache3">{{counterparty.myBic}}</span></p>
+        <p id="cache4" style="">
+          <span id="u548" class="ax_default icon">
+            <img id="u548_img" class="img " src="assets/images/search_results/u544.png" />
+          </span>
+          <span style="color: rgb(102, 102, 102); margin-left: 4px;" id="cache5">{{counterparty.myBicCity}}, {{counterparty.myBicCountry}}</span></p>
+      </div>
+    </div>
+
+    <div id="u528" class="ax_default swift_table_cell">
+      <img id="u528_img" class="img" src="assets/images/search_results/u528.png">
+      <span id="u540" class="ax_default icon">
+        <img id="u540_img" class="img " src="assets/images/search_results/u540.png" />
+      </span>
+      <div id="u528_text" class="text ">
+        <p id="cache0" style="">
+          <span id="cache1" style="">{{getOverallIncomingAuthStatus(counterparty)}}</span></p>
+      </div>
+    </div>
+
+    <div id="u529" class="ax_default swift_table_cell">
+      <img id="u529_img" class="img" src="assets/images/search_results/u528.png">
+      <span id="u578" class="ax_default image1">
+        <img id="u578_img" class="img " src="assets/images/search_results/u578.png">
+      </span>
+      <div id="u529_text" class="text ">
+        <p id="cache20" style=""><span id="cache21" style="">{{getOverallOutgoingAuthStatus(counterparty)}}</span></p>
+      </div>
+    </div>
+
+    <div id="u536" class="ax_default swift_line">
+      <img id="u536_img" class="img " src="assets/images/1_-_create_manually/u390.png" />
+    </div>
+  </div>
+</div>

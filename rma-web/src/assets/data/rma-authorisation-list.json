@@ -1,0 +1,231 @@
+[
+  {
+      "id": 1,
+      "code": "BEBABE33",
+      "name": "Best Bank Belgium",
+      "area": "Brussels",
+      "country": "Belgium",
+      "mybic": "ABBANL2A",
+      "bicarea": "Amsterdam",
+      "biccountry": "The Netherlands",
+      "incomingtraffic": "Authorised",
+      "outgoingtraffic": "Partly authorised",
+	  "incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     },
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.finplus",
+							"permissions": "camt.034, camt.028, camt.031, camt.029, camt.026, camt.027, camt.033",
+							"validitystart": "",
+							"validityend": "2022-04-23"
+					     }
+					   ],
+	  "outgoingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": ""
+						 },
+						 {
+							"authstatus": "Revoked by my institution",
+							"service": "swift.finplus",
+							"permissions": "Cat 1 Include all, Cat 2 All except fin.296, Cat 3 Include all",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 }
+					   ]
+  },
+  {
+      "id": 2,
+      "code": "BEBABE34",
+      "name": "Best Bank Belgium",
+      "area": "Brussels",
+      "country": "Belgium",
+      "mybic": "ABBANL2A",
+      "bicarea": "Amsterdam",
+      "biccountry": "The Netherlands",
+      "incomingtraffic": "Authorised",
+      "outgoingtraffic": "Partly authorised",
+	  "incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     }
+					   ],
+	  "outgoingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 },
+						 {
+							"authstatus": "Deleted by my institution",
+							"service": "swift.finplus",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 }
+					   ]
+  },
+  {
+      "id": 3,
+      "code": "BEBABE35",
+      "name": "Best Bank Belgium",
+      "area": "Brussels",
+      "country": "Belgium",
+      "mybic": "ABBANL2A",
+      "bicarea": "Amsterdam",
+      "biccountry": "The Netherlands",
+      "incomingtraffic": "Authorised",
+      "outgoingtraffic": "Partly authorised",
+	  "incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     }
+					   ],
+	  "outgoingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 },
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.finplus",
+							"permissions": "Allow all message types",
+							"validitystart": "",
+							"validityend": "2021-03-20"
+						 }
+					   ]
+  },
+  {
+    "id": 4,
+    "code": "BEBABE35",
+    "name": "Bank of America",
+    "area": "Ohio",
+    "country": "USA",
+    "mybic": "ABBANL3E",
+    "bicarea": "Amsterdam",
+    "biccountry": "The Netherlands",
+    "incomingtraffic": "Authorised",
+    "outgoingtraffic": "Partly authorised",
+    "incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     }
+					   ],
+	"outgoingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 },
+						 {
+							"authstatus": "Rejected by my institution",
+							"service": "swift.finplus",
+							"permissions": "Allow all message types",
+							"validitystart": "",
+							"validityend": ""
+						 }
+					   ]
+},
+{
+    "id": 5,
+    "code": "BEBABE56",
+    "name": "Chase",
+    "area": "Ohio",
+    "country": "USA",
+    "mybic": "ABBANL3E",
+    "bicarea": "Amsterdam",
+    "biccountry": "The Netherlands",
+    "incomingtraffic": "Authorised",
+    "outgoingtraffic": "Partly authorised",
+	"incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     }
+					   ],
+	"outgoingAuths": [
+						 {
+							"authstatus": "Revoked by my institution",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 },
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.finplus",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 }
+					   ]
+},
+{
+    "id": 6,
+    "code": "BEBABE65",
+    "name": "DCB",
+    "area": "Ohio",
+    "country": "USA",
+    "mybic": "ABBANL3E",
+    "bicarea": "Amsterdam",
+    "biccountry": "The Netherlands",
+    "incomingtraffic": "Authorised",
+    "outgoingtraffic": "Partly authorised",
+	"incomingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+					     }
+					   ],
+	"outgoingAuths": [
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.fin",
+							"permissions": "Allow all message types",
+							"validitystart": "2020-02-15",
+							"validityend": "2021-02-15"
+						 },
+						 {
+							"authstatus": "Authorised",
+							"service": "swift.finplus",
+							"permissions": "Allow all message types",
+							"validitystart": "2021-01-20",
+							"validityend": "2022-01-20"
+						 }
+					   ]
+}
+]

@@ -1,0 +1,129 @@
+<body>
+<table class="unselectable">
+	<tr>
+		<td class="backButtonColumn">
+			<div class="tertiaryButton" id="backButton" (click)="backToList.emit()">
+				<img class="backButtonImage" src="assets/images/details/arrow_back.png" draggable="false"/>
+				Back to list
+			</div>
+		</td>
+		<td class="previousButtonColumn">
+			<div class="tertiaryButton" [ngClass]="curPosition === 0 ? 'buttonHidden': ''" id="previousButton" (click)="iterateThroughList(false)" (mouseover)="hoverPreviousButton(prev)" (mouseout)="unhoverPreviousButton(prev)">
+				<img #prev class="previousButtonImage" src="assets/images/details/previous.png" draggable="false"/>
+				Previous
+			</div>
+		</td>
+		<td class="nextButtonColumn">
+			<div class="tertiaryButton" [ngClass]="curPosition == counterPartySearchResults.length - 1 ? 'buttonHidden' : ''" id="nextButton" (click)="iterateThroughList(true)" (mouseover)="hoverNextButton(next)" (mouseout)="unhoverNextButton(next)">
+				Next
+				<img #next class="nextButtonImage" src="assets/images/details/next.png" draggable="false"/>
+			</div>
+		</td>
+	</tr>
+</table>
+<div class="subtitle1"><b>{{counterparty!.myBic | uppercase}}</b>&nbsp;-&nbsp;{{counterparty!.myBicCity | uppercase}},&nbsp;{{counterparty!.myBicCountry | uppercase}}</div>
+<div class="title">{{counterparty!.counterPartyBicName | uppercase}}</div>
+<div class="subtitle2">{{counterparty!.counterPartyBic  | uppercase}}</div>
+<div class="subtitle3"><img class="pinImage unselectable" valign="middle" src="assets/images/details/pin.png" draggable="false"/>{{counterparty!.counterPartyBicCity | uppercase}},&nbsp;{{counterparty!.counterPartyBicCountry | uppercase}}</div>
+<table class="outerTable">
+	<tr><th>Incoming traffic</th><th>Outgoing traffic</th></tr>
+	<tr>
+		<td class="large">
+			<div class="overallAuthStatus">
+				<img class="overallAuthStatusImage unselectable" [src]="getOverallIncomingImageSrc()" draggable="false"/>
+				<div [ngClass]="{'authorised': getOverallIncomingAuthStatus()==='Authorised', 'notauthorised':getOverallIncomingAuthStatus()==='Not authorised', 'partlyauthorised':getOverallIncomingAuthStatus()==='Partly authorised'}">
+					<b>{{getOverallIncomingAuthStatus()}}</b>
+				</div>
+			</div>
+		</td>
+		<td class="large">
+			<div class="overallAuthStatus">
+				<img class="overallAuthStatusImage unselectable" [src]="getOverallOutgoingImageSrc()" draggable="false"/>
+				<div [ngClass]="{'authorised': getOverallOutgoingAuthStatus()==='Authorised', 'notauthorised':getOverallOutgoingAuthStatus()==='Not authorised', 'partlyauthorised':getOverallOutgoingAuthStatus()==='Partly authorised'}">
+					<b>{{getOverallOutgoingAuthStatus()}}</b>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td class="incomingColumn">
+			<table class="innerTable" *ngFor="let auth of getIncomingAuths()">
+				<tr><td class="authStatusDetails">
+					<div [ngClass]="{'authorised': getAuthStatusDetails(auth)==='Authorised', 'notauthorised':getAuthStatusDetails(auth)!=='Authorised'}">
+						{{getAuthStatusDetails(auth)}}
+					</div>
+				</td></tr>
+				<tr><td>
+					<div class="restrictionsBox">
+						<div class="flexRow">
+							<div class="imgcontainer unselectable">
+								<img valign="top" src="assets/images/details/details_handshake.png" draggable="false"/>
+								<ng-template [ngIf]="getAuthStatusDetails(auth) == 'Authorised'">
+									<img class="restrictionsCheckmark" src="assets/images/details/authorised.png" draggable="false"/>
+								</ng-template>
+							</div>
+							<span class="flexColumn">
+								<div class="service">{{auth.service}}</div>
+								<div class="permissions">{{auth.permissions}}</div>
+							</span>
+						</div>
+						<div class="flexRow validityPeriod">
+							<ng-container *ngIf="auth.validityStart.length > 0; else noValidityStart">
+								{{convertDate(auth.validityStart)}}&nbsp;-
+							</ng-container>
+							<ng-template #noValidityStart>
+								<i>No start date</i>&nbsp;-
+							</ng-template>
+							<ng-container *ngIf="auth.validityEnd.length > 0; else noValidityEnd">
+								{{convertDate(auth.validityEnd)}}
+							</ng-container>
+							<ng-template #noValidityEnd>
+								<i>&nbsp;No expiry date</i>
+							</ng-template>
+						</div>
+					</div>
+				</td></tr>
+			</table>
+		</td>
+		<td>
+			<table class="innerTable" *ngFor="let auth of getOutgoingAuths()">
+				<tr><td class="authStatusDetails">
+					<div [ngClass]="{'authorised': getAuthStatusDetails(auth)==='Authorised', 'notauthorised':getAuthStatusDetails(auth)!=='Authorised'}">
+						{{getAuthStatusDetails(auth)}}
+					</div>
+				</td></tr>
+				<tr><td>
+					<div class="restrictionsBox">
+						<div class="flexRow">
+							<div class="imgcontainer unselectable">
+								<img valign="top" src="assets/images/details/details_handshake.png" draggable="false"/>
+								<ng-template [ngIf]="getAuthStatusDetails(auth) == 'Authorised'">
+									<img class="restrictionsCheckmark" src="assets/images/details/authorised.png" draggable="false"/>
+								</ng-template>
+							</div>
+							<span class="flexColumn">
+								<div class="service">{{auth.service}}</div>
+								<div class="permissions">{{auth.permissions}}</div>
+							</span>
+						</div>
+						<div class="flexRow validityPeriod">
+							<ng-container *ngIf="auth.validityStart.length > 0; else noValidityStart">
+								{{convertDate(auth.validityStart)}}&nbsp;-
+							</ng-container>
+							<ng-template #noValidityStart>
+								<i>No start date</i>&nbsp;-
+							</ng-template>
+							<ng-container *ngIf="auth.validityEnd.length > 0; else noValidityEnd">
+								{{convertDate(auth.validityEnd)}}
+							</ng-container>
+							<ng-template #noValidityEnd>
+								<i>&nbsp;No expiry date</i>
+							</ng-template>
+						</div>
+					</div>
+				</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</body>

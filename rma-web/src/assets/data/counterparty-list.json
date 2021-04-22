@@ -1,0 +1,25 @@
+[
+  {
+      "id": 1,
+      "branchCode": "BEBABE33",
+      "branchArea": "Amsterdam",
+	  "branchCountry": "The Netherlands",
+	  "branchName": "Best Bank Belgium"
+  },
+  {
+      "id": 2,
+      "branchCode": "BEBABE34",
+      "branchArea": "Amsterdam",
+	  "branchCountry": "The Netherlands",
+	  "branchName": "Best Bank Belgium"
+  },
+  {
+      "id": 3,
+      "branchCode": "BEBABE35",
+      "branchArea": "Amsterdam",
+	  "branchCountry": "The Netherlands",
+	  "branchName": "Best Bank Belgium"
+
+  }
+]
+

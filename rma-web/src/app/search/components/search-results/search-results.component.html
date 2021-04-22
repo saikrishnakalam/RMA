@@ -1,0 +1,423 @@
+<!-- Unnamed (Rectangle) -->
+<div id="u469" class="ax_default swift_label">
+  <div id="u469_div" class=""></div>
+  <div id="u469_text" class="text ">
+    <p><span>FILTER:</span></p>
+  </div>
+</div>
+
+<!-- Unnamed (Group) -->
+<div id="u466" class="ax_default" data-left="0" data-top="0" data-width="87" data-height="36">
+
+  <!-- Unnamed (Rectangle) -->
+  <div id="u467" class="ax_default swift_box_1" style="cursor: pointer;" (click)="showBicDropDown = !showBicDropDown">
+    <div id="u467_div" class=""></div>
+    <div id="u467_text" class="text ">
+      <p><span>My BIC</span></p>
+    </div>
+  </div>
+  <div id="u603" class="ax_default swift_label" *ngIf="filters.selectedIssuerBic!.length">
+    <div id="u603_div" class=""></div>
+    <div id="u603_text" class="text ">
+      <p><span>{{filters.selectedIssuerBic?.length}}</span></p>
+    </div>
+  </div>
+  <!-- Unnamed (Shape) -->
+  <div id="u468" class="ax_default icon">
+    <img id="u468_img" class="img " src="assets/images/no_results/u87.png" />
+  </div>
+</div>
+<!-- dropdown my bic (Group) -->
+<div id="u456" class="ax_default issuerBICDropDown" [ngClass]="showBicDropDown ? 'ax_default_show': 'ax_default_hidden'"
+  data-label="dropdown my bic" data-left="0" data-top="0" data-width="0" data-height="0">
+  <div class="ax_default swift_box_1">
+    <div class="counterPartyCountryDropDown_div">
+      <div (click)="toggleIssuerBic(issuerBIC)" class="counterPartyCountryDropDown_text"
+        *ngFor="let issuerBIC of issuerBicList">
+        <p>
+          <span>{{issuerBIC.bicCode}}</span>
+          <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="issuerBIC.checked" />
+        </p>
+      </div>
+      <div class="counterPartyCountryDropDown_buttons_div">
+        <div data-label="Reset button"
+          [ngClass]="filters.selectedIssuerBic!.length > 0 ? 'reset-enabled': 'reset-disabled'"
+          class="ax_default swift_secondary_button" (click)="resetIssuerBicsFilter()">
+          <div class="counterPartyCountryDropDown_buttons_text">
+            <p><span>Reset</span></p>
+          </div>
+        </div>
+        <div data-label="save button"
+          [ngClass]="filters.selectedIssuerBic!.length > 0 ? 'save-enabled': 'save-disabled'"
+          class="ax_default swift_secondary_button">
+          <div class="counterPartyCountryDropDown_buttons_text">
+            <p><span>Save filter</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Unnamed (Country counterparty) -->
+
+<!-- Unnamed (Group) -->
+<div id="u501" class="ax_default" data-left="0" data-top="0" data-width="175" data-height="36">
+
+  <!-- Unnamed (Group) -->
+  <div id="u502" class="ax_default" data-left="0" data-top="0" data-width="175" data-height="36">
+
+    <!-- Incoming traffic line (Rectangle) -->
+    <div id="u503" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+      (click)="showCountryCounterPartyDropDown = !showCountryCounterPartyDropDown">
+      <div id="u503_div" class=""></div>
+      <div id="u503_text" class="text ">
+        <p><span>Country counterparty</span></p>
+      </div>
+    </div>
+    <div id="u703" class="ax_default swift_label" *ngIf="filters.selectedCounterPartyCountry!.length">
+      <div id="u703_div" class=""></div>
+      <div id="u703_text" class="text ">
+        <p><span>{{filters.selectedCounterPartyCountry?.length}}</span></p>
+      </div>
+    </div>
+    <!-- Unnamed (Shape) -->
+    <div id="u504" class="ax_default icon">
+      <img id="u504_img" class="img " src="assets/images/no_results/u87.png" />
+    </div>
+  </div>
+</div>
+
+<!-- Unnamed (Left navigaiton) -->
+<div class="ax_default counterPartyCountryDropDown"
+  [ngClass]="showCountryCounterPartyDropDown ? 'ax_default_show': 'ax_default_hidden'" data-label="dropdown my bic"
+  data-left="0" data-top="0" data-width="0" data-height="0">
+
+  <!-- Unnamed (Rectangle) -->
+  <div class="ax_default swift_box_1">
+    <!-- Unnamed (Rectangle) -->
+    <div class="counterPartyCountryDropDown_div">
+      <!-- Unnamed (Rectangle) -->
+
+      <div (click)="toggleCounterPartyCountryDropDown(country)" class="counterPartyCountryDropDown_text"
+        *ngFor="let country of countriesListForDropdown">
+        <p>
+          <span>{{country.countryName}}</span>
+          <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="country.checked" />
+        </p>
+      </div>
+
+      <div class="counterPartyCountryDropDown_buttons_div">
+        <!-- Reset button (Rectangle) -->
+        <div class="ax_default swift_secondary_button" data-label="Reset button"
+          (click)="resetCounterPartyCountriesFilter()"
+          [ngClass]="filters.selectedCounterPartyCountry!.length > 0 ? 'reset-enabled': 'reset-disabled'">
+          <div class="counterPartyCountryDropDown_buttons_text">
+            <p><span>Reset</span></p>
+          </div>
+        </div>
+
+        <!-- save button (Rectangle) -->
+        <div class="ax_default swift_secondary_button" data-label="save button"
+          [ngClass]="filters.selectedCounterPartyCountry!.length > 0 ? 'save-enabled': 'save-disabled'">
+          <div class="counterPartyCountryDropDown_buttons_text">
+            <p><span>Save filter</span></p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- Unnamed (Counterparties selected left nav) -->
+
+
+
+<!-- Unnamed (Incoming traffic filter) -->
+
+<!-- Unnamed (Group) -->
+<div id="u471" class="ax_default" data-left="0" data-top="0" data-width="136" data-height="36">
+
+  <!-- Unnamed (Group) -->
+  <div id="u472" class="ax_default" data-left="0" data-top="0" data-width="136" data-height="36">
+
+    <!-- Incoming traffic line (Rectangle) -->
+    <div id="u473" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+      (click)="showIncomingTrafficDropDown = !showIncomingTrafficDropDown">
+      <div id="u473_div" class=""></div>
+      <div id="u473_text" class="text ">
+        <p><span>Incoming traffic</span></p>
+      </div>
+    </div>
+    <div id="u803" class="ax_default swift_label" *ngIf="filters.selectedIncomingAuths!.length">
+      <div id="u803_div" class=""></div>
+      <div id="u803_text" class="text ">
+        <p><span>{{filters.selectedIncomingAuths?.length}}</span></p>
+      </div>
+    </div>
+
+    <!-- Unnamed (Shape) -->
+    <div id="u474" class="ax_default icon">
+      <img id="u474_img" class="img " src="assets/images/no_results/u87.png" />
+    </div>
+  </div>
+
+  <!-- dropdown (Group) -->
+  <div id="u475" class="ax_default incomingAuthDropdown" data-label="dropdown"
+    [ngClass]="showIncomingTrafficDropDown ? 'ax_default_show': 'ax_default_hidden'" data-left="0" data-top="0"
+    data-width="0" data-height="0">
+
+    <!-- Unnamed (Rectangle) -->
+    <div class="ax_default swift_box_1">
+      <!-- Unnamed (Rectangle) -->
+      <div class="counterPartyCountryDropDown_div">
+        <!-- Unnamed (Rectangle) -->
+
+        <div (click)="toggleIncomingAuthDropDown(incomingAuthorisation)" class="counterPartyCountryDropDown_text"
+          *ngFor="let incomingAuthorisation of incomingAuthorisationList">
+          <p>
+            <span>{{incomingAuthorisation.status}}</span>
+            <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="incomingAuthorisation.checked" />
+          </p>
+        </div>
+
+        <div class="counterPartyCountryDropDown_buttons_div">
+          <!-- Reset button (Rectangle) -->
+          <div class="ax_default swift_secondary_button" data-label="Reset button" (click)="resetIncomingAuthsFilter()"
+            [ngClass]="filters.selectedIncomingAuths!.length > 0 ? 'reset-enabled': 'reset-disabled'">
+            <div class="counterPartyCountryDropDown_buttons_text">
+              <p><span>Reset</span></p>
+            </div>
+          </div>
+
+          <!-- save button (Rectangle) -->
+          <div class="ax_default swift_secondary_button" data-label="save button"
+            [ngClass]="filters.selectedIncomingAuths!.length > 0 ? 'save-enabled': 'save-disabled'">
+            <div class="counterPartyCountryDropDown_buttons_text">
+              <p><span>Save filter</span></p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Unnamed (Outgoing traffic filter) -->
+
+<!-- Unnamed (Group) -->
+<div id="u486" class="ax_default" data-left="0" data-top="0" data-width="138" data-height="36">
+
+  <!-- Unnamed (Group) -->
+  <div id="u487" class="ax_default" data-left="0" data-top="0" data-width="138" data-height="36">
+
+    <!-- Incoming traffic line (Rectangle) -->
+    <div id="u488" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+      (click)="showOutgoingTrafficDropDown = !showOutgoingTrafficDropDown">
+      <div id="u488_div" class=""></div>
+      <div id="u488_text" class="text ">
+        <p><span>Outgoing traffic</span></p>
+      </div>
+    </div>
+    <div id="u903" class="ax_default swift_label" *ngIf="filters.selectedOutgoingAuths!.length">
+      <div id="u903_div" class=""></div>
+      <div id="u903_text" class="text">
+        <p><span>{{filters.selectedOutgoingAuths?.length}}</span></p>
+      </div>
+    </div>
+    <!-- Unnamed (Shape) -->
+    <div id="u489" class="ax_default icon">
+      <img id="u489_img" class="img " src="assets/images/no_results/u87.png" />
+    </div>
+  </div>
+
+  <!-- dropdown (Group) -->
+  <div id="u490" class="ax_default outgoingAuthDropdown" data-label="dropdown"
+    [ngClass]="showOutgoingTrafficDropDown ? 'ax_default_show': 'ax_default_hidden'" data-left="0" data-top="0"
+    data-width="0" data-height="0">
+
+    <div class="ax_default swift_box_1">
+      <!-- Unnamed (Rectangle) -->
+      <div class="counterPartyCountryDropDown_div">
+        <!-- Unnamed (Rectangle) -->
+
+        <div (click)="toggleOutgoingAuthDropDown(outgoingAuthorisation)" class="counterPartyCountryDropDown_text"
+          *ngFor="let outgoingAuthorisation of outgoingAuthorisationList">
+          <p>
+            <span>{{outgoingAuthorisation.status}}</span>
+            <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="outgoingAuthorisation.checked" />
+          </p>
+        </div>
+
+        <div class="counterPartyCountryDropDown_buttons_div">
+          <!-- Reset button (Rectangle) -->
+          <div class="ax_default swift_secondary_button" data-label="Reset button" (click)="resetOutgoingAuthsFilter()"
+            [ngClass]="filters.selectedOutgoingAuths!.length > 0 ? 'reset-enabled': 'reset-disabled'">
+            <div class="counterPartyCountryDropDown_buttons_text">
+              <p><span>Reset</span></p>
+            </div>
+          </div>
+
+          <!-- save button (Rectangle) -->
+          <div class="ax_default swift_secondary_button" data-label="save button"
+            [ngClass]="filters.selectedOutgoingAuths!.length > 0 ? 'save-enabled': 'save-disabled'">
+            <div class="counterPartyCountryDropDown_buttons_text">
+              <p><span>Save filter</span></p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div id="u594" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="resetAllFilters()">
+  <div id="u594_div" class="" tabindex="0"></div>
+  <div id="u594_text" class="text ">
+    <p id="cache8" style=""><span id="cache9" style="">Reset all filters</span></p>
+  </div>
+</div>
+
+
+<!-- Users (Rectangle) -->
+<div id="u511" class="ax_default swift_label" data-label="Users">
+  <div id="u511_div" class=""></div>
+  <div id="u511_text" class="text ">
+    <p><span>Search</span></p>
+  </div>
+</div>
+
+<!-- Unnamed (Rectangle) -->
+<div id="u512" class="ax_default swift_box_2">
+  <div id="u512_div" class=""></div>
+</div>
+
+<!-- Unnamed (Dynamic Panel) -->
+<div id="u513" class="ax_default">
+  <div id="u513_state0" class="panel_state" data-label="State1" style="">
+    <div id="u513_state0_content" class="panel_state_content">
+
+      <!-- Unnamed (HEader simple) -->
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u515" class="ax_default flow_shape1">
+        <div id="u515_div" class=""></div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u516" class="ax_default paragraph">
+        <div id="u516_div" class=""></div>
+        <div id="u516_text" class="text ">
+          <p><span>RMA - Relationship management</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u517" class="ax_default image">
+        <img id="u517_img" class="img " src="assets/images/search/u14.png" />
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u518" class="ax_default" data-left="1301" data-top="0" data-width="116" data-height="50">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u519" class="ax_default paragraph">
+          <div id="u519_div" class=""></div>
+          <div id="u519_text" class="text ">
+            <p><span>John Doe </span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Shape) -->
+        <div id="u520" class="ax_default icon">
+          <img id="u520_img" class="img " src="assets/images/search/u17.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Unnamed (advanced search link) -->
+
+<!-- Unnamed (Rectangle) -->
+<div id="u556" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="showAdvancedSearch()">
+  <div id="u556_div" class=""></div>
+  <div id="u556_text" class="text ">
+    <p><span style="text-decoration:underline;">Advanced search</span></p>
+  </div>
+</div>
+
+<!-- Unnamed (Group) -->
+<div id="u557" class="ax_default" data-left="336" data-top="123" data-width="582" data-height="36">
+
+  <!-- Unnamed (Large search) -->
+
+  <!-- Unnamed (Group) -->
+  <div id="u559" class="ax_default" data-left="0" data-top="0" data-width="501" data-height="36">
+
+    <!-- Unnamed (Group) -->
+    <div id="u560" class="ax_default" data-left="0" data-top="0" data-width="501" data-height="36">
+
+      <!-- Unnamed (Group) -->
+      <div id="u561" class="ax_default" data-left="0" data-top="0" data-width="501" data-height="36">
+
+        <!-- Unnamed (Group) -->
+        <div id="u562" class="ax_default" data-left="0" data-top="0" data-width="501" data-height="36">
+
+          <!-- Rectangle (Rectangle) -->
+          <div id="u563" class="ax_default swift_fill_in_field" data-label="Rectangle">
+            <div id="u563_div" class=""></div>
+          </div>
+
+          <!-- Input Field seearch bar (Text Field) -->
+          <div id="u564" class="ax_default swift_label" data-label="Input Field seearch bar">
+            <input id="u564_input" type="text" value="" maxlength="128" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unnamed (Rectangle) -->
+  <div id="u565" class="ax_default swift_primary_button" style="cursor: pointer;"
+    (click)="searchClicked.emit(counterPartyText)">
+    <div id="u565_div" class=""></div>
+    <div id="u565_text" class="text ">
+      <p><span>Search</span></p>
+    </div>
+  </div>
+
+  <!-- Input Field seearch bar (Text Field) -->
+  <div id="u566" class="ax_default swift_label" data-label="Input Field seearch bar">
+    <input id="u566_input" type="text" [(ngModel)]="counterPartyText" (keyup)="onSearchCounterparty($event)"
+      maxlength="128" autocomplete="off" />
+    <ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+      [ngClass]="counterPartyAutocompleteResults.length > 0 && showAutocompleteData ? 'open' : ''">
+      <li class="ui-menu-item" *ngFor="let counterparty of counterPartyAutocompleteResults"
+        (click)="getCounterPartyResults(counterparty.institutionName)" style="cursor: pointer;">
+        <div id="ui-id-35" tabindex="-1" class="ui-menu-item-wrapper">{{counterparty.bicCode}} -
+          {{counterparty.institutionName}}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Unnamed (Shape) -->
+  <div id="u567" class="ax_default shape2" style="cursor: pointer;"
+    (click)="counterPartyText=''; searchClicked.emit(counterPartyText)">
+    <img id="u567_img" class="img " src="assets/images/no_results/u63.png" />
+  </div>
+</div>
+
+<app-counterparty-list-component *ngIf="counterPartySearchResults.length > 0"
+  [counterPartySearchResults]="counterPartySearchResults" (detailsClicked)="showDetails($event)">
+</app-counterparty-list-component>
+<app-no-results-component *ngIf="!counterPartySearchResults || counterPartySearchResults.length === 0">
+</app-no-results-component>

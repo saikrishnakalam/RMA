@@ -1,0 +1,214 @@
+body {
+	font-family: Arial;
+	font-size: 14px;
+	left: 336px;
+	top: 58px;
+	position: absolute;
+}
+
+.unselectable {
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+}
+
+.tertiaryButton {
+	color: rgb(2,124,149);
+	cursor: pointer;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.tertiaryButton:hover {
+	background-color: rgb(230,242,244);
+}
+
+.buttonHidden {
+	visibility: hidden;
+}
+
+#backButton {
+	width: 106px;
+	height: 36px;
+	margin-left: -8px;
+}
+
+.backButtonImage {
+	margin-right: 8px;
+	margin-left: 8px;
+}
+
+.backButtonColumn {
+	width: 465px;
+}
+
+#previousButton {
+	width: 83px;
+	height: 36px;
+	display: flex;
+	justify-content: center;
+}
+
+.previousButtonImage {
+	margin-right: 8px;
+}
+
+.previousButtonColumn {
+	width: 83px;
+	padding-right: 8px;
+	border-right: 1px solid rgb(222,219,217);
+}
+
+#nextButton {
+	width: 60px;
+	height: 36px;
+	display: flex;
+	justify-content: center;
+}
+
+.nextButtonImage {
+	margin-left: 8px;
+}
+
+.nextButtonColumn {
+	width: 83px;
+	padding-left: 8px;
+}
+
+.subtitle1 {
+	color: #666666;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 28px;
+}
+
+.subtitle2 {
+	padding-bottom: 4px;
+	font-weight: bold;
+}
+
+.subtitle3 {
+	padding-bottom: 24px;
+}
+
+.pinImage {
+	margin-right: 8px;
+}
+
+.outerTable {
+	border-top: 1px solid rgb(222,219,217);
+	padding-top: 16px;
+}
+
+table {
+	color: #000000;
+	text-align: left;
+	outline: none;
+	border-spacing: 0px;
+}
+
+th, td {
+	width: 529px;
+}
+
+.large {
+	font-size: 24px;
+	padding-bottom: 16px;
+	padding-top: 8px;
+}
+
+.overallAuthStatus {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.overallAuthStatusImage {
+	width: 20px;
+	height: 20px;
+	margin-right: 8px;
+}
+
+.incomingColumn {
+	padding-right: 24px;
+}
+
+.authStatusDetails {
+	height: 36px;
+	border-bottom: 1px solid rgb(222,219,217);
+	font-weight: bold;
+	padding-left: 8px;
+	vertical-align: middle;
+}
+
+.innerTable {
+	border: 1px solid rgb(222,219,217);
+	margin-bottom: 24px;
+}
+
+.restrictionsBox {
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+
+.flexRow {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+}
+		
+.imgcontainer {
+	position: relative;
+	display: inline;
+	padding-right: 16px;
+}
+
+.restrictionsCheckmark {
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	margin-top: 12px;
+	margin-left: -8px;
+}
+
+.service {
+	font-weight: bold;
+}
+
+.permissions {
+	padding-top: 4px;
+}
+
+.validityPeriod {
+	padding-top: 16px;
+}
+
+.authorised {
+	color: #07841d;
+}
+
+.notauthorised {
+	color: #666666;
+}
+
+.partlyauthorised {
+	color: #cc4b04;
+}
