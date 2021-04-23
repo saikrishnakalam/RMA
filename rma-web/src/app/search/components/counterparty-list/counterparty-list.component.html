@@ -48,26 +48,31 @@
     <div id="u526" class="ax_default swift_table_cell" style="cursor: pointer;" (click)="showDetails(counterparty)">
       <img id="u526_img" class="img " src="assets/images/search_results/u526.png" />
       <div id="u526_text" class="text ">
-        <p><span style="font-family:'Arial Bold', 'Arial';font-weight:700;color:#222222;">{{counterparty.counterPartyBic}} -
+        <p><span
+            style="font-family:'Arial Bold', 'Arial';font-weight:700;color:#222222;">{{counterparty.correspondentBic}} -
             {{counterparty.counterPartyBicName}}</span></p>
         <p>
           <!-- Unnamed (Shape) -->
           <span id="u544" class="ax_default icon">
             <img id="u544_img" class="img " src="assets/images/search_results/u544.png" />
           </span>
-          <span style="font-family:'Arial';font-weight:400;color:#666666; margin-left: 4px;"> {{counterparty.counterPartyBicCity}}, {{counterparty.counterPartyBicCountry}}</span>
+          <span style="font-family:'Arial';font-weight:400;color:#666666; margin-left: 4px;">
+            {{getBicByCode(counterparty.correspondentBic)?.branchCity}},
+            {{getBicByCode(counterparty.correspondentBic)?.branchCountry}}</span>
         </p>
       </div>
     </div>
     <div id="u527" class="ax_default swift_table_cell">
       <img id="u527_img" class="img" src="assets/images/search_results/u527.png">
       <div id="u527_text" class="text ">
-        <p id="cache2" style=""><span style="color: rgb(34, 34, 34);" id="cache3">{{counterparty.myBic}}</span></p>
+        <p id="cache2" style=""><span style="color: rgb(34, 34, 34);" id="cache3">{{counterparty.issuerBic}}</span></p>
         <p id="cache4" style="">
           <span id="u548" class="ax_default icon">
             <img id="u548_img" class="img " src="assets/images/search_results/u544.png" />
           </span>
-          <span style="color: rgb(102, 102, 102); margin-left: 4px;" id="cache5">{{counterparty.myBicCity}}, {{counterparty.myBicCountry}}</span></p>
+          <span style="color: rgb(102, 102, 102); margin-left: 4px;"
+            id="cache5">{{getBicByCode(counterparty.issuerBic)?.branchCity}},
+            {{getBicByCode(counterparty.issuerBic)?.branchCountry}}</span></p>
       </div>
     </div>
 
@@ -78,7 +83,7 @@
       </span>
       <div id="u528_text" class="text ">
         <p id="cache0" style="">
-          <span id="cache1" style="">{{getOverallIncomingAuthStatus(counterparty)}}</span></p>
+          <span id="cache1" style="">{{getStatusByCode(counterparty.incomingStatus)}}</span></p>
       </div>
     </div>
 
@@ -88,7 +93,7 @@
         <img id="u578_img" class="img " src="assets/images/search_results/u578.png">
       </span>
       <div id="u529_text" class="text ">
-        <p id="cache20" style=""><span id="cache21" style="">{{getOverallOutgoingAuthStatus(counterparty)}}</span></p>
+        <p id="cache20" style=""><span id="cache21" style="">{{getStatusByCode(counterparty.outgoingStatus)}}</span></p>
       </div>
     </div>
 

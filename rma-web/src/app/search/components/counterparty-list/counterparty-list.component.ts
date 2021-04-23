@@ -20,11 +20,10 @@ export class CounterpartyListComponent implements OnInit {
   showDetails(counterparty: RmaAuthorisation) {
     this.detailsClicked.emit(counterparty);
   }
-  getOverallIncomingAuthStatus(counterparty: RmaAuthorisation){
-    return this.searchService.getOverallIncomingAuthStatus(counterparty);
+  getStatusByCode(status: string) {
+    return this.searchService.getStatusByCode(status);
   }
-
-  getOverallOutgoingAuthStatus(counterparty: RmaAuthorisation){
-    return this.searchService.getOverallOutgoingAuthStatus(counterparty);
+  getBicByCode(code: string) {
+    return this.searchService.getBicByCode(code);
   }
 }

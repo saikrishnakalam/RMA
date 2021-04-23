@@ -2,14 +2,16 @@ import { RmaBIC } from './rma-bic.model';
 
 export interface RmaAuthorisation {
   id: number,
-  myBic: string,
+  issuerBic: string,
   myBicName: string,
   myBicCity: string,
   myBicCountry: string,
-  counterPartyBic: string,
+  correspondentBic: string,
   counterPartyBicName: string,
   counterPartyBicCity: string,
   counterPartyBicCountry: string,
+  incomingStatus: string,
+  outgoingStatus: string,
   incomingAuths: Authorisation[];
   outgoingAuths: Authorisation[];
 }

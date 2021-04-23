@@ -26,7 +26,7 @@ export class CounterpartyDetailsComponent implements OnInit {
 	// Finds the position of the current counterparty in the search results array
 	findCurrentLocationInList() {
 		if (this.counterparty !== undefined) {
-			for (let i=0; i<this.counterPartySearchResults.length; i++) {
+			for (let i = 0; i < this.counterPartySearchResults.length; i++) {
 				if (this.counterPartySearchResults[i].id == this.counterparty.id) {
 					return i;
 				}
@@ -73,7 +73,7 @@ export class CounterpartyDetailsComponent implements OnInit {
 	getOverallIncomingAuthStatus() {
 		let numAuthorised = 0;
 		if (this.counterparty !== undefined) {
-			for (let i=0; i<this.counterparty.incomingAuths.length; i++) {
+			for (let i = 0; i < this.counterparty.incomingAuths.length; i++) {
 				if (this.getAuthStatusDetails(this.counterparty.incomingAuths[i]) == "Authorised") {
 					numAuthorised++;
 				}
@@ -97,7 +97,7 @@ export class CounterpartyDetailsComponent implements OnInit {
 	getOverallOutgoingAuthStatus() {
 		let numAuthorised = 0;
 		if (this.counterparty !== undefined) {
-			for (let i=0; i<this.counterparty.outgoingAuths.length; i++) {
+			for (let i = 0; i < this.counterparty.outgoingAuths.length; i++) {
 				if (this.getAuthStatusDetails(this.counterparty.outgoingAuths[i]) == "Authorised") {
 					numAuthorised++;
 				}
@@ -173,7 +173,7 @@ export class CounterpartyDetailsComponent implements OnInit {
 	// Returns the counterparty's BIC address
 	getCounterpartyCode() {
 		if (this.counterparty !== undefined) {
-			return this.counterparty.counterPartyBic.toUpperCase();
+			return this.counterparty.correspondentBic.toUpperCase();
 		}
 		else {
 			return "";
@@ -213,7 +213,7 @@ export class CounterpartyDetailsComponent implements OnInit {
 	// Returns the user BIC's address
 	getMyBic() {
 		if (this.counterparty !== undefined) {
-			return this.counterparty.myBic.toUpperCase();
+			return this.counterparty.issuerBic.toUpperCase();
 		}
 		else {
 			return "";
