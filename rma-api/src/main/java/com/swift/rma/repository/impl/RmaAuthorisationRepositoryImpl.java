@@ -34,16 +34,13 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 	    CriteriaQuery<RmaAuthorisation> cq = cb.createQuery(RmaAuthorisation.class);
 
 	    Root<RmaAuthorisation> rmaAuth = cq.from(RmaAuthorisation.class);
+	    Join<RmaAuthorisation, RmaBic> leftJoin = rmaAuth.join("rmaCorrespondentBics", JoinType.LEFT);
 	    List<Predicate> predList = new LinkedList<Predicate>();
-//	    
-	    //predList.add(cb.equal(rmaResult.get("branchCode"), "XXX"));
-//	    if (counterPartyText != null) {
-//	    	//predList.add(cb.equal(rmaResult.get("correspondentBic"), counterPartyText));
-//	    	//predList.add(cb.equal(rmaAuth.get("institutionName"), counterPartyText));
-//	    }
-//	    
-	    
-	    
+
+	    predList.add(cb.equal(leftJoin.get("branchCode"), "XXX"));
+	    if (counterPartyText != null) {
+	    	predList.add(cb.equal(leftJoin.get("institutionName"), counterPartyText));
+	    }
 
 	    if (correspondingBics != null) {
 	    	predList.add(rmaAuth.get("correspondentBic").in(correspondingBics));

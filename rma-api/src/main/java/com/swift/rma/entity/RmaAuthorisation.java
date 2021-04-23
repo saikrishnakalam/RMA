@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "RMA_AUTHORISATIONS_TEMP")
 public class RmaAuthorisation implements Serializable{
@@ -52,6 +54,8 @@ public class RmaAuthorisation implements Serializable{
 	private Date validityEndDate;
 	private String incomingStatus;
 	private String outgoingStatus;
+	
+	private Set<RmaBic> rmaCorrespondentBics;
 
 	public RmaAuthorisation() {
 		super();
@@ -63,7 +67,8 @@ public class RmaAuthorisation implements Serializable{
 			Date storedDate, Date issuedDate, String authDirection, String permissions, String signerBic,
 			String signature, Integer approvedById, Integer createdById, Integer proposalId, Integer fourEyeRequestId,
 			Integer recordId, Integer portalActivated, Date validityFromDate, Date validityEndDate,
-			String incomingStatus, String outgoingStatus) {
+			String incomingStatus, String outgoingStatus,
+			Set<RmaBic> rmaCorrespondentBics) {
 		super();
 		this.authSeqId = authSeqId;
 		this.revision = revision;
@@ -90,6 +95,7 @@ public class RmaAuthorisation implements Serializable{
 		this.validityEndDate = validityEndDate;
 		this.incomingStatus = incomingStatus;
 		this.outgoingStatus = outgoingStatus;
+		this.rmaCorrespondentBics = rmaCorrespondentBics;
 	}
 
 	@Column(name = "ISSUER_BIC", nullable = false)
@@ -316,5 +322,17 @@ public class RmaAuthorisation implements Serializable{
 
 	public void setOutgoingStatus(String outgoingStatus) {
 		this.outgoingStatus = outgoingStatus;
+	}
+	@JsonManagedReference
+	@OneToMany
+	@JoinColumn(name = "BIC_CODE", referencedColumnName = "CORRESPONDENT_BIC",
+    insertable = false, updatable  = false)
+	public Set<RmaBic> getRmaCorrespondentBics() {
+		return rmaCorrespondentBics;
+	}
+
+
+	public void setRmaCorrespondentBics(Set<RmaBic> rmaCorrespondentBics) {
+		this.rmaCorrespondentBics = rmaCorrespondentBics;
 	}
 }

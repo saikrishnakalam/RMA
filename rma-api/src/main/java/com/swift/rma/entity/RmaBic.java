@@ -9,9 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "RMA_BIC_TEMP")
@@ -25,13 +29,15 @@ public class RmaBic implements java.io.Serializable{
     private String branchInfo;
     private String branchLocation;
     private String institutionName;
+    private Set<RmaAuthorisation> rmaAuthorisation;
     
     public RmaBic() {
     	super();
     }
 	
 	public RmaBic(String bicCode, String branchAddress, String branchCode, String branchCity,
-			String branchCountry, String branchInfo, String branchLocation, String institutionName
+			String branchCountry, String branchInfo, String branchLocation, 
+			String institutionName, Set<RmaAuthorisation> rmaAuthorisation
 			) {
 		super();
 		this.bicCode = bicCode;
@@ -42,6 +48,7 @@ public class RmaBic implements java.io.Serializable{
 		this.branchInfo = branchInfo;
 		this.branchLocation = branchLocation;
 		this.institutionName = institutionName;
+		this.rmaAuthorisation = rmaAuthorisation;
 	}
 
 	@Id
@@ -113,6 +120,19 @@ public class RmaBic implements java.io.Serializable{
 
 	public void setInstitutionName(String institutionName) {
 		this.institutionName = institutionName;
+	}
+
+	@JsonBackReference
+	@OneToMany
+	@JoinColumn(name = "CORRESPONDENT_BIC", referencedColumnName = "BIC_CODE",
+    insertable = false, updatable  = false)
+	public Set<RmaAuthorisation> getRmaAuthorisation() {
+		return rmaAuthorisation;
+	}
+	
+
+	public void setRmaAuthorisation(Set<RmaAuthorisation> rmaAuthorisation) {
+		this.rmaAuthorisation = rmaAuthorisation;
 	}
 	
 }
