@@ -11,7 +11,7 @@ import com.swift.rma.model.RmaSearchResult;
 
 public interface RmaAuthorisationService {
 	
-	List<RmaSearchResult> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondentBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection);
+	List<RmaAuthorisation> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondentBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection);
 	
 	List<RmaBic> getCounterPartyBics();
 	

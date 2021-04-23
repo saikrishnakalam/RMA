@@ -3,6 +3,7 @@ package com.swift.rma.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,16 +36,21 @@ public class RmaAuthorisationController {
     }
     
     @GetMapping("/getRelations")
-    public List<RmaSearchResult> getAllRelations(
+    public ResponseEntity<List<RmaAuthorisation>> getAllRelations(
     		@RequestParam(name="counterPartyText", required = false) String counterPartyText,
-    		@RequestParam(name="myBics", required = false) List<String> myBics,
+    		@RequestParam(name="myBics", required = true) List<String> myBics,
     		@RequestParam(name="counterPartyBics", required = false) List<String> counterPartyBics,
     		@RequestParam(name="counterPartyCountries", required = false) List<String> counterPartyCountries,
     		@RequestParam(name="incomingAuthDirection", required = false) List<String> incomingAuthDirection,
     		@RequestParam(name="outgoingAuthDirection", required = false) List<String> outgoingAuthDirection
     		
     		) {
-    	return rmaAuthorisationService.getRelationsByFilter(counterPartyText, myBics, counterPartyBics, incomingAuthDirection, outgoingAuthDirection);
+    	List<RmaAuthorisation> results = rmaAuthorisationService.getRelationsByFilter(counterPartyText, myBics, counterPartyBics, incomingAuthDirection, outgoingAuthDirection);
+    	
+    	if(results == null) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	return ResponseEntity.ok().body(results);
     }
     
     @GetMapping("/getCountries")

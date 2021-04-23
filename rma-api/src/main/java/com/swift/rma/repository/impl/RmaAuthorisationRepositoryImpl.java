@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.swift.rma.entity.RmaAuthorisation;
-import com.swift.rma.entity.RmaBicTemp;
+import com.swift.rma.entity.RmaBic;
 import com.swift.rma.repository.RmaAuthorisationRepositoryCustom;
 
 @Repository
@@ -29,46 +29,41 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 	@PersistenceContext
 	EntityManager em;
 	
-	public List<Tuple> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondingBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection){
+	public List<RmaAuthorisation> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondingBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection){
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-	    CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+	    CriteriaQuery<RmaAuthorisation> cq = cb.createQuery(RmaAuthorisation.class);
 
-	    Root<RmaBicTemp> rma = cq.from(RmaBicTemp.class);
-	    Join<RmaBicTemp, RmaAuthorisation> rmaResult = rma.join("rmaIncomingAuthorisation", JoinType.INNER);
-	    Join<RmaBicTemp, RmaAuthorisation> rmaResult1 = rma.join("rmaOutgoingAuthorisation", JoinType.INNER);
+	    Root<RmaAuthorisation> rmaAuth = cq.from(RmaAuthorisation.class);
 	    List<Predicate> predList = new LinkedList<Predicate>();
-	    List<Predicate> predList1 = new LinkedList<Predicate>();
+//	    
+	    //predList.add(cb.equal(rmaResult.get("branchCode"), "XXX"));
+//	    if (counterPartyText != null) {
+//	    	//predList.add(cb.equal(rmaResult.get("correspondentBic"), counterPartyText));
+//	    	//predList.add(cb.equal(rmaAuth.get("institutionName"), counterPartyText));
+//	    }
+//	    
 	    
-	    if (counterPartyText != null) {
-	    	//predList.add(cb.equal(rmaResult.get("correspondentBic"), counterPartyText));
-	    	predList.add(cb.equal(rma.get("institutionName"), counterPartyText));
-	    }
 	    
-	    if (issuerBics != null) {
-	    	predList.add(rmaResult.get("issuerBic").in(issuerBics));
-	    	//predList.add(rmaResult1.get("correspondentBic").in(issuerBics));
-	    }
-	    
+
 	    if (correspondingBics != null) {
-	    	predList.add(rmaResult.get("correspondentBic").in(correspondingBics));
-	    	//predList.add(rmaResult1.get("issuerBic").in(correspondingBics));
+	    	predList.add(rmaAuth.get("correspondentBic").in(correspondingBics));
 	    }
-	    
 	    
 	    if (incomingAuthDirection != null) {
-	    	predList.add(rmaResult.get("authStatus").in(incomingAuthDirection));
-	    	predList.add(cb.equal(rmaResult.get("authDirection"), "incoming"));
+	    	predList.add(rmaAuth.get("incomingStatus").in(incomingAuthDirection));
 	    	
 	    }
 	    if (outgoingAuthDirection != null) {
-	    	predList.add(rmaResult.get("authStatus").in(outgoingAuthDirection));
-	    	predList.add(cb.equal(rmaResult.get("authDirection"), "outgoing"));
+	    	predList.add(rmaAuth.get("outgoingStatus").in(outgoingAuthDirection));
 	    }
+	    
+	    predList.add(rmaAuth.get("issuerBic").in(issuerBics));
+	    predList.add(cb.equal(rmaAuth.get("authDirection"), "incoming"));
 	    
 	    Predicate[] predArray = new Predicate[predList.size()];
 	    predList.toArray(predArray);
 	    
-	    cq.multiselect(rma, rmaResult, rmaResult1).where(predArray);
+	    cq.select(rmaAuth).where(predArray);
 	    return em.createQuery(cq).getResultList();
 		
 	}

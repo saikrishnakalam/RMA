@@ -27,11 +27,12 @@ public class RmaBic implements java.io.Serializable{
     private String institutionName;
     
     public RmaBic() {
-
+    	super();
     }
 	
 	public RmaBic(String bicCode, String branchAddress, String branchCode, String branchCity,
-			String branchCountry, String branchInfo, String branchLocation, String institutionName) {
+			String branchCountry, String branchInfo, String branchLocation, String institutionName
+			) {
 		super();
 		this.bicCode = bicCode;
 		this.branchAddress = branchAddress;

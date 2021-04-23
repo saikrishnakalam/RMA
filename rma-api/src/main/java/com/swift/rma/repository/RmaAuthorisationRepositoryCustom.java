@@ -8,5 +8,5 @@ import com.swift.rma.entity.RmaAuthorisation;
 import com.swift.rma.entity.RmaBic;
 
 public interface RmaAuthorisationRepositoryCustom {
-	public List<Tuple> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondingBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection);
+	public List<RmaAuthorisation> getRelationsByFilter(String counterPartyText, List<String> issuerBics, List<String> correspondingBics, List<String> incomingAuthDirection, List<String> outgoingAuthDirection);
 }

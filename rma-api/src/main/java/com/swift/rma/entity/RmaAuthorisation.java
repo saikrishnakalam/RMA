@@ -1,5 +1,6 @@
 package com.swift.rma.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "RMA_AUTHORISATIONS_TEMP")
-public class RmaAuthorisation {
+public class RmaAuthorisation implements Serializable{
 
 	private Integer authSeqId;
 	private Integer revision;
@@ -49,16 +50,20 @@ public class RmaAuthorisation {
 
 	private Date validityFromDate;
 	private Date validityEndDate;
+	private String incomingStatus;
+	private String outgoingStatus;
 
 	public RmaAuthorisation() {
-
+		super();
 	}
+
 
 	public RmaAuthorisation(Integer authSeqId, Integer revision, Integer linkedAuthorisationId, Integer jpaVersion,
 			Integer businessEntityId, String issuerBic, String correspondentBic, String service, String authStatus,
 			Date storedDate, Date issuedDate, String authDirection, String permissions, String signerBic,
 			String signature, Integer approvedById, Integer createdById, Integer proposalId, Integer fourEyeRequestId,
-			Integer recordId, Integer portalActivated, Date validityFromDate, Date validityEndDate) {
+			Integer recordId, Integer portalActivated, Date validityFromDate, Date validityEndDate,
+			String incomingStatus, String outgoingStatus) {
 		super();
 		this.authSeqId = authSeqId;
 		this.revision = revision;
@@ -83,6 +88,8 @@ public class RmaAuthorisation {
 		this.portalActivated = portalActivated;
 		this.validityFromDate = validityFromDate;
 		this.validityEndDate = validityEndDate;
+		this.incomingStatus = incomingStatus;
+		this.outgoingStatus = outgoingStatus;
 	}
 
 	@Column(name = "ISSUER_BIC", nullable = false)
@@ -129,30 +136,6 @@ public class RmaAuthorisation {
 	public void setAuthDirection(String authDirection) {
 		this.authDirection = authDirection;
 	}
-
-//	@ManyToOne
-//	@JoinColumn(name="rma_issuer_bic", referencedColumnName = "bic_code", insertable = false, updatable = false)
-//	public RmaBic getRmaIssuerBic() {
-//		return rmaIssuerBic;
-//	}
-//
-//	public void setRmaIssuerBic(RmaBic rmaIssuerBic) {
-//		this.rmaIssuerBic = rmaIssuerBic;
-//	}
-//	
-//	
-//	@ManyToMany
-//	@JoinTable(
-//			  name = "rma_correspondent_bic", 
-//			  joinColumns = @JoinColumn(name = "correspondent_bic"), 
-//			  inverseJoinColumns = @JoinColumn(name = "bic_code"))
-//	public Set<RmaBic> getRmaCorrespondentBIC() {
-//		return rmaCorrespondentBIC;
-//	}
-//
-//	public void setRmaCorrespondentBIC(Set<RmaBic> rmaCorrespondentBIC) {
-//		this.rmaCorrespondentBIC = rmaCorrespondentBIC;
-//	}
 
 	@Column(name = "PERMISSIONS", nullable = false)
 	public String getPermissions() {
@@ -316,5 +299,22 @@ public class RmaAuthorisation {
 	public void setPortalActivated(Integer portalActivated) {
 		this.portalActivated = portalActivated;
 	}
+	
+	@Column(name = "INCOMING_STATUS")
+	public String getIncomingStatus() {
+		return incomingStatus;
+	}
 
+	public void setIncomingStatus(String incomingStatus) {
+		this.incomingStatus = incomingStatus;
+	}
+
+	@Column(name = "OUTGOING_STATUS")
+	public String getOutgoingStatus() {
+		return outgoingStatus;
+	}
+
+	public void setOutgoingStatus(String outgoingStatus) {
+		this.outgoingStatus = outgoingStatus;
+	}
 }

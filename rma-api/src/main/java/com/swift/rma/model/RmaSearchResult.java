@@ -7,116 +7,61 @@ import com.swift.rma.entity.RmaBic;
 public class RmaSearchResult {
 	
 	
-    private String myBic;
-    private String myBicName;
-    private String myBicCity;
-    private String myBicCountry;
-    private String counterPartyBic;
-    private String counterPartyBicName;
-    private String counterPartyBicCity;
-    private String counterPartyBicCountry;
-    private List<AuthService> incomingAuths;
-    private List<AuthService> outgoingAuths;
+    private String issuerBic;
+    private String correspondentBic;
+    private String incomingStatus;
+    private String outgoingStatus;
     
-    public RmaSearchResult() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public RmaSearchResult(String myBic, String myBicName, String myBicCity, String myBicCountry,
-			String counterPartyBic, String counterPartyBicName, String counterPartyBicCity,
-			String counterPartyBicCountry, List<AuthService> incomingAuths, List<AuthService> outgoingAuths) {
+	public RmaSearchResult() {
 		super();
-		this.myBic = myBic;
-		this.myBicName = myBicName;
-		this.myBicCity = myBicCity;
-		this.myBicCountry = myBicCountry;
-		this.counterPartyBic = counterPartyBic;
-		this.counterPartyBicName = counterPartyBicName;
-		this.counterPartyBicCity = counterPartyBicCity;
-		this.counterPartyBicCountry = counterPartyBicCountry;
-		this.incomingAuths = incomingAuths;
-		this.outgoingAuths = outgoingAuths;
 	}
 
-	public String getMyBic() {
-		return myBic;
+	public RmaSearchResult(String issuerBic, String correspondentBic, String incomingStatus, String outgoingStatus) {
+		super();
+		this.issuerBic = issuerBic;
+		this.correspondentBic = correspondentBic;
+		this.incomingStatus = incomingStatus;
+		this.outgoingStatus = outgoingStatus;
 	}
 
-	public void setMyBic(String myBic) {
-		this.myBic = myBic;
+
+	public String getIssuerBic() {
+		return issuerBic;
 	}
 
-	public String getMyBicName() {
-		return myBicName;
+
+	public void setIssuerBic(String issuerBic) {
+		this.issuerBic = issuerBic;
 	}
 
-	public void setMyBicName(String myBicName) {
-		this.myBicName = myBicName;
+
+	public String getCorrespondentBic() {
+		return correspondentBic;
 	}
 
-	public String getMyBicCity() {
-		return myBicCity;
+
+	public void setCorrespondentBic(String correspondentBic) {
+		this.correspondentBic = correspondentBic;
 	}
 
-	public void setMyBicCity(String myBicCity) {
-		this.myBicCity = myBicCity;
+
+	public String getIncomingStatus() {
+		return incomingStatus;
 	}
 
-	public String getMyBicCountry() {
-		return myBicCountry;
+
+	public void setIncomingStatus(String incomingStatus) {
+		this.incomingStatus = incomingStatus;
 	}
 
-	public void setMyBicCountry(String myBicCountry) {
-		this.myBicCountry = myBicCountry;
+
+	public String getOutgoingStatus() {
+		return outgoingStatus;
 	}
 
-	public String getCounterPartyBic() {
-		return counterPartyBic;
-	}
 
-	public void setCounterPartyBic(String counterPartyBic) {
-		this.counterPartyBic = counterPartyBic;
+	public void setOutgoingStatus(String outgoingStatus) {
+		this.outgoingStatus = outgoingStatus;
 	}
-
-	public String getCounterPartyBicName() {
-		return counterPartyBicName;
-	}
-
-	public void setCounterPartyBicName(String counterPartyBicName) {
-		this.counterPartyBicName = counterPartyBicName;
-	}
-
-	public String getCounterPartyBicCity() {
-		return counterPartyBicCity;
-	}
-
-	public void setCounterPartyBicCity(String counterPartyBicCity) {
-		this.counterPartyBicCity = counterPartyBicCity;
-	}
-
-	public String getCounterPartyBicCountry() {
-		return counterPartyBicCountry;
-	}
-
-	public void setCounterPartyBicCountry(String counterPartyBicCountry) {
-		this.counterPartyBicCountry = counterPartyBicCountry;
-	}
-
-	public List<AuthService> getIncomingAuths() {
-		return incomingAuths;
-	}
-
-	public void setIncomingAuths(List<AuthService> incomingAuths) {
-		this.incomingAuths = incomingAuths;
-	}
-
-	public List<AuthService> getOutgoingAuths() {
-		return outgoingAuths;
-	}
-
-	public void setOutgoingAuths(List<AuthService> outgoingAuths) {
-		this.outgoingAuths = outgoingAuths;
-	}
-	
 
 }
