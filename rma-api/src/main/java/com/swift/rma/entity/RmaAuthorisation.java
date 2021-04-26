@@ -34,6 +34,7 @@ public class RmaAuthorisation implements Serializable{
 	private Integer businessEntityId;
 	private String issuerBic;
 	private String correspondentBic;
+	private String correspondentCC;
 	private String service;
 	private String authStatus;
 
@@ -114,6 +115,15 @@ public class RmaAuthorisation implements Serializable{
 
 	public void setCorrespondentBic(String correspondentBic) {
 		this.correspondentBic = correspondentBic;
+	}
+	
+	@Column(name = "CORRESPONDENT_CC", nullable = false)
+	public String getCorrespondentCC() {
+		return correspondentCC;
+	}
+
+	public void setCorrespondentCC(String correspondentCC) {
+		this.correspondentCC = correspondentCC;
 	}
 
 	@Column(name = "SERVICE", nullable = false)
