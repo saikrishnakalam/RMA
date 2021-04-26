@@ -11,7 +11,7 @@ export class SearchApiService {
   constructor(private apiService: ApiService) { }
 
   getCounterPartyBics(): Observable<RmaBIC[]> {
-    return this.apiService.get('getCounterPartyBics').pipe(map((data: RmaBIC[]) => data));
+    return this.apiService.get('getBics').pipe(map((data: RmaBIC[]) => data));
   }
   getCountries(): Observable<Country[]> {
     return this.apiService.get('getCountries').pipe(map((data: Country[]) => data));
@@ -46,6 +46,7 @@ export class SearchApiService {
     params = params.append('startRecordNumber', '1');
     params = params.append('pageSize', '50');
     params = params.append('numberOfPages', '7');
+    params = params.append('sortKey', 'BESTMATCH');
 
     console.log(params);
     return this.apiService.get('getAuthInfo', params)
