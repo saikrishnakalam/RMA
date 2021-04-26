@@ -16,6 +16,8 @@ import com.swift.rma.repository.RmaCountryRepository;
 import com.swift.rma.repository.RmaAuthorisationRepository;
 import com.swift.rma.service.RmaAuthorisationService;
 
+import util.SortKey;
+
 @Service
 public class RmaAuthorisationServiceImpl implements RmaAuthorisationService {
 
@@ -31,11 +33,11 @@ public class RmaAuthorisationServiceImpl implements RmaAuthorisationService {
 	@Override
 	public List<RmaAuthorisation> getAuthInfo(String counterPartyText, List<String> myBics,
 			List<String> counterPartyCountryCodes, List<String> incomingTrafficOptions,
-			List<String> outgoingTrafficOptions, Integer startPageNumber, Integer pageSize, Integer numberOfPages) {
+			List<String> outgoingTrafficOptions, Integer startRecordNumber, Integer pageSize, Integer numberOfPages, SortKey sortKey) {
 
 		List<RmaAuthorisation> authInfo = rmaAuthorisationRepository.getAuthInfo(counterPartyText, myBics,
-				counterPartyCountryCodes, incomingTrafficOptions, outgoingTrafficOptions, startPageNumber, pageSize,
-				numberOfPages);
+				counterPartyCountryCodes, incomingTrafficOptions, outgoingTrafficOptions, startRecordNumber, pageSize,
+				numberOfPages, sortKey);
 
 		return authInfo;
 	}
@@ -44,11 +46,11 @@ public class RmaAuthorisationServiceImpl implements RmaAuthorisationService {
 	public List<RmaAuthorisation> getAuthInfoAdvanced(List<String> myBics, List<String> myBicCountryCodes,
 			List<String> counterPartyBics, List<String> counterPartyBicCountryCodes, List<String> service,
 			List<String> type, List<String> status, List<String> messageTypes, List<Date> startDate, List<Date> endDate,
-			Integer startPageNumber, Integer pageSize, Integer numberOfPages) {
+			Integer startRecordNumber, Integer pageSize, Integer numberOfPages, SortKey sortKey) {
 
 		List<RmaAuthorisation> authInfo =  rmaAuthorisationRepository.getAuthInfoAdvanced(myBics, myBicCountryCodes, counterPartyBics,
-				counterPartyBicCountryCodes, service, type, status, messageTypes, startDate, endDate, startPageNumber,
-				pageSize, numberOfPages);
+				counterPartyBicCountryCodes, service, type, status, messageTypes, startDate, endDate, startRecordNumber,
+				pageSize, numberOfPages, sortKey);
 		
 		return authInfo;
 	}

@@ -7,15 +7,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -25,6 +22,8 @@ import com.swift.rma.entity.RmaAuthorisation;
 import com.swift.rma.entity.RmaBic;
 import com.swift.rma.repository.RmaAuthorisationRepositoryCustom;
 
+import util.SortKey;
+
 @Repository
 public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositoryCustom {
 
@@ -33,7 +32,7 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 
 	public List<RmaAuthorisation> getAuthInfo(String counterPartyText, List<String> myBics,
 			List<String> counterPartyCountryCodes, List<String> incomingTrafficOptions,
-			List<String> outgoingTrafficOptions, Integer startPageNumber, Integer pageSize, Integer numberOfPages) {
+			List<String> outgoingTrafficOptions, Integer startPageNumber, Integer pageSize, Integer numberOfPages, SortKey sortKey) {
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<RmaAuthorisation> cq = cb.createQuery(RmaAuthorisation.class);
@@ -65,7 +64,31 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 		Predicate[] predArray = new Predicate[predList.size()];
 		predList.toArray(predArray);
 
+		List<Order> orderList = new ArrayList<Order>();
+		if(sortKey != null) {
+			if(SortKey.BESTMATCH == sortKey) {
+				orderList.add(cb.asc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.asc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.ATOZ == sortKey) {
+				orderList.add(cb.asc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.asc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.ZTOA == sortKey) {
+				orderList.add(cb.desc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.desc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.EXPIRYSOON == sortKey) {
+				orderList.add(cb.desc(rmaAuth.get("validityEndDate")));
+			}
+			
+		}
+		
 		cq.select(rmaAuth).where(predArray);
+		cq.orderBy(orderList);
 		TypedQuery<RmaAuthorisation> typedQuery = em.createQuery(cq);
 		typedQuery.setFirstResult(startPageNumber);
 		typedQuery.setMaxResults(pageSize * numberOfPages);
@@ -76,7 +99,7 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 	public List<RmaAuthorisation> getAuthInfoAdvanced(List<String> myBics, List<String> myBicCountryCodes,
 			List<String> counterPartyBics, List<String> counterPartyBicCountryCodes, List<String> service,
 			List<String> type, List<String> status, List<String> messageTypes, List<Date> startDate, List<Date> endDate,
-			Integer startPageNumber, Integer pageSize, Integer numberOfPages) {
+			Integer startPageNumber, Integer pageSize, Integer numberOfPages, SortKey sortKey) {
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<RmaAuthorisation> cq = cb.createQuery(RmaAuthorisation.class);
@@ -131,14 +154,38 @@ public class RmaAuthorisationRepositoryImpl implements RmaAuthorisationRepositor
 				predList.add(cb.equal(rmaAuth.get("validityEndDate"), endDate.get(0)));
 			}
 		}
+		List<Order> orderList = new ArrayList<Order>();
+		if(sortKey != null) {
+			if(SortKey.BESTMATCH == sortKey) {
+				orderList.add(cb.asc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.asc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.ATOZ == sortKey) {
+				orderList.add(cb.asc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.asc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.ZTOA == sortKey) {
+				orderList.add(cb.desc(rmaAuth.get("issuerBic")));
+				orderList.add(cb.desc(leftJoin.get("institutionName")));	
+			}
+			
+			if(SortKey.EXPIRYSOON == sortKey) {
+				orderList.add(cb.desc(rmaAuth.get("validityEndDate")));
+			}
+			
+		}
 
 		Predicate[] predArray = new Predicate[predList.size()];
 		predList.toArray(predArray);
 
 		cq.select(rmaAuth).where(predArray);
+		cq.orderBy(orderList);
 		TypedQuery<RmaAuthorisation> typedQuery = em.createQuery(cq);
 		typedQuery.setFirstResult(startPageNumber);
 		typedQuery.setMaxResults(pageSize * numberOfPages);
+		
 		return typedQuery.getResultList();
 	}
 
