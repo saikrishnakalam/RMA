@@ -23,6 +23,9 @@ export class CounterpartyListComponent implements OnInit {
   getStatusByCode(status: string) {
     return this.searchService.getStatusByCode(status);
   }
+  getImageSrcByCode(status: string) {
+    return this.searchService.getOverallIncomingImageSrc(status);
+  }
   getBicByCode(code: string) {
     return this.searchService.getBicByCode(code);
   }
