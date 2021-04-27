@@ -19,28 +19,39 @@ export class SearchApiService {
 
   getRelations(selectedFilters: RmaFilter): Observable<RmaAuthorisation[]> {
     let params = new HttpParams();
-
+    let body: any = {
+      startRecordNumber: 1,
+      pageSize: 50,
+      numberOfPages: 7,
+      sortKey: 'BESTMATCH'
+    };
     if (selectedFilters.selectedIssuerBic && selectedFilters.selectedIssuerBic.length > 0) {
-      params = params.append('myBics', selectedFilters.selectedIssuerBic.toString())
+      params = params.append('myBics', selectedFilters.selectedIssuerBic.toString());
+      body = { ...body, myBics: selectedFilters.selectedIssuerBic.toString() };
     } else {
       const rawIssuerBicList = localStorage.getItem('issuerBicList');
       const issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
-      params = params.append('myBics', issuerBicList.toString())
+      params = params.append('myBics', issuerBicList.toString());
+      body = { ...body, myBics: issuerBicList.toString() };
     }
 
     if (selectedFilters.counterPartyText && selectedFilters.counterPartyText != '') {
-      params = params.append('counterPartyText', selectedFilters.counterPartyText)
+      params = params.append('counterPartyText', selectedFilters.counterPartyText);
+      body = { ...body, counterPartyText: selectedFilters.counterPartyText };
     }
     if (selectedFilters.selectedCounterPartyCountry && selectedFilters.selectedCounterPartyCountry.length > 0) {
       params = params.append('counterPartyCountryCodes', selectedFilters.selectedCounterPartyCountry.toString())
+      body = { ...body, counterPartyCountryCodes: selectedFilters.selectedCounterPartyCountry.toString() };
     }
 
     if (selectedFilters.selectedIncomingAuths && selectedFilters.selectedIncomingAuths.length > 0) {
-      params = params.append('incomingTrafficOptions', selectedFilters.selectedIncomingAuths.toString())
+      params = params.append('incomingTrafficOptions', selectedFilters.selectedIncomingAuths.toString());
+      body = { ...body, incomingTrafficOptions: selectedFilters.selectedIncomingAuths.toString() };
     }
 
     if (selectedFilters.selectedOutgoingAuths && selectedFilters.selectedOutgoingAuths.length > 0) {
-      params = params.append('outgoingTrafficOptions', selectedFilters.selectedOutgoingAuths.toString())
+      params = params.append('outgoingTrafficOptions', selectedFilters.selectedOutgoingAuths.toString());
+      body = { ...body, outgoingTrafficOptions: selectedFilters.selectedOutgoingAuths.toString() };
     }
 
     params = params.append('startRecordNumber', '1');
@@ -48,8 +59,8 @@ export class SearchApiService {
     params = params.append('numberOfPages', '7');
     params = params.append('sortKey', 'BESTMATCH');
 
-    console.log(params);
-    return this.apiService.get('getAuthInfo', params)
+    console.log(body);
+    return this.apiService.post('getAuthInfo', body)
       .pipe(map((data: RmaAuthorisation[]) => data));
   }
 
