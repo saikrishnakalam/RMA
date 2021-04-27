@@ -38,9 +38,12 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      { headers: headers }
     ).pipe(catchError(this.formatErrors));
   }
 
