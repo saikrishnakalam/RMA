@@ -1,5 +1,6 @@
 export interface RmaFilter {
     counterPartyText?: string;
+    counterPartyBics?: string[];
     selectedIssuerBic?: string[];
     selectedIssuerBicCountry?: string[];
     selectedCounterParty?: string[];

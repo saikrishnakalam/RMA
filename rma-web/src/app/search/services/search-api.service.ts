@@ -23,7 +23,7 @@ export class SearchApiService {
       beginRecord: 1,
       pageSize: 50,
       pageCount: 7,
-      sortKey: 'BESTMATCH'
+      sortKey: 1
     };
     if (selectedFilters.selectedIssuerBic && selectedFilters.selectedIssuerBic.length > 0) {
       params = params.append('myBics', selectedFilters.selectedIssuerBic.toString());
@@ -36,9 +36,9 @@ export class SearchApiService {
       body = { ...body, myBics: result.toString() };
     }
 
-    if (selectedFilters.counterPartyText && selectedFilters.counterPartyText != '') {
-      params = params.append('counterPartyText', selectedFilters.counterPartyText);
-      body = { ...body, counterPartyText: selectedFilters.counterPartyText };
+    if (selectedFilters.counterPartyBics && selectedFilters?.counterPartyBics.length != null) {
+      params = params.append('counterPartyText', selectedFilters?.counterPartyBics.toString());
+      body = { ...body, corrBICs: selectedFilters.counterPartyBics };
     }
     if (selectedFilters.selectedCounterPartyCountry && selectedFilters.selectedCounterPartyCountry.length > 0) {
       params = params.append('counterPartyCountryCodes', selectedFilters.selectedCounterPartyCountry.toString())

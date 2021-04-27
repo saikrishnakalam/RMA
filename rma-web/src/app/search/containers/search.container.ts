@@ -41,21 +41,21 @@ export class SearchContainer implements OnInit {
   hideAdvancedSearch() {
     this.isAdvancedSearchClicked = false;
   }
-  
+
   showDetails(counterparty: RmaAuthorisation) {
-	  this.isDetailsClicked = true;
-	  this.counterpartyClicked = counterparty;
+    this.isDetailsClicked = true;
+    this.counterpartyClicked = counterparty;
   }
-  
+
   hideDetails() {
-	  this.isDetailsClicked = false;
+    this.isDetailsClicked = false;
   }
 
   getCounterPartyBics() {
     this.searchApiService.getCounterPartyBics().subscribe(data => {
       console.log(data);
       this.counterPartyList = data;
-      
+
       this.searchService.setCounterPartyBics(data);
     });
   }
@@ -70,34 +70,36 @@ export class SearchContainer implements OnInit {
     console.log(counterPartyText);
     this.counterPartyText = counterPartyText;
     this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyList(counterPartyText);
-    
+
   }
 
   filterCounterPartyList(counterParty: string) {
     console.log(this.counterPartyList);
     if (counterParty === '' || counterParty === null) {
-        return [];
+      return [];
     }
     return counterParty ? this.counterPartyList.filter(s => s.bicCode.toLowerCase().indexOf(counterParty.toLowerCase()) != -1)
-        : [];
+      : [];
   }
 
   getSearchResults(counterPartyText: string) {
-    console.log("Search clicked",this.filters, counterPartyText);
+    console.log("Search clicked", this.filters, counterPartyText);
     this.counterPartyText = counterPartyText;
-    this.filters.counterPartyText = counterPartyText; 
+    this.filters.counterPartyText = counterPartyText;
+    const counterPartyList = this.searchService.filterCounterPartyList(counterPartyText);
+    this.filters.counterPartyBics = counterPartyList.map((myBic: any) => myBic.bicCode);
     this.isSearchClicked = true;
-    if(counterPartyText){
+    if (counterPartyText) {
       this.searchApiService.getRelations(this.filters).subscribe(data => {
         this.searchResults = data;
-        
+
       });
-    }else {
+    } else {
       this.searchResults = [];
     }
   }
 
-  setSelectedFilters(selectedFilters: RmaFilter){
+  setSelectedFilters(selectedFilters: RmaFilter) {
     this.filters = selectedFilters;
   }
 }
