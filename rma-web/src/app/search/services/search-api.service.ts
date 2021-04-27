@@ -20,9 +20,9 @@ export class SearchApiService {
   getRelations(selectedFilters: RmaFilter): Observable<RmaAuthorisation[]> {
     let params = new HttpParams();
     let body: any = {
-      startRecordNumber: 1,
+      beginRecord: 1,
       pageSize: 50,
-      numberOfPages: 7,
+      pageCount: 7,
       sortKey: 'BESTMATCH'
     };
     if (selectedFilters.selectedIssuerBic && selectedFilters.selectedIssuerBic.length > 0) {
@@ -41,17 +41,17 @@ export class SearchApiService {
     }
     if (selectedFilters.selectedCounterPartyCountry && selectedFilters.selectedCounterPartyCountry.length > 0) {
       params = params.append('counterPartyCountryCodes', selectedFilters.selectedCounterPartyCountry.toString())
-      body = { ...body, counterPartyCountryCodes: selectedFilters.selectedCounterPartyCountry.toString() };
+      body = { ...body, countryCode: selectedFilters.selectedCounterPartyCountry.toString() };
     }
 
     if (selectedFilters.selectedIncomingAuths && selectedFilters.selectedIncomingAuths.length > 0) {
       params = params.append('incomingTrafficOptions', selectedFilters.selectedIncomingAuths.toString());
-      body = { ...body, incomingTrafficOptions: selectedFilters.selectedIncomingAuths.toString() };
+      body = { ...body, inTraffic: selectedFilters.selectedIncomingAuths.toString() };
     }
 
     if (selectedFilters.selectedOutgoingAuths && selectedFilters.selectedOutgoingAuths.length > 0) {
       params = params.append('outgoingTrafficOptions', selectedFilters.selectedOutgoingAuths.toString());
-      body = { ...body, outgoingTrafficOptions: selectedFilters.selectedOutgoingAuths.toString() };
+      body = { ...body, outTraffic: selectedFilters.selectedOutgoingAuths.toString() };
     }
 
     params = params.append('startRecordNumber', '1');
