@@ -31,8 +31,9 @@ export class SearchApiService {
     } else {
       const rawIssuerBicList = localStorage.getItem('issuerBicList');
       const issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
-      params = params.append('myBics', issuerBicList.toString());
-      body = { ...body, myBics: issuerBicList.toString() };
+      let result = issuerBicList.map((myBic: any) => myBic.bicCode);
+      params = params.append('myBics', result.toString());
+      body = { ...body, myBics: result.toString() };
     }
 
     if (selectedFilters.counterPartyText && selectedFilters.counterPartyText != '') {
