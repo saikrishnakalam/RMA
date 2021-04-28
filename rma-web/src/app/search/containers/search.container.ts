@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RmaBIC, RmaAuthorisation, RmaFilter } from 'src/app/core';
+import { RmaBIC, RmaAuthorisation, RmaFilter, RmaAuthorisationWithPagination } from 'src/app/core';
 import { SearchApiService } from '../services/search-api.service';
 import { SearchService } from '../services/search.service';
 
@@ -14,16 +14,18 @@ export class SearchContainer implements OnInit {
   counterpartyClicked: RmaAuthorisation | undefined;
   counterPartyList: RmaBIC[] = [];
   counterPartyAutocompleteResults: RmaBIC[] = [];
-  searchResults: RmaAuthorisation[] = [];
+  searchResults: RmaAuthorisationWithPagination[] = [];
   counterPartyText: string = '';
   filters: RmaFilter = {
-    counterPartyText: '',
-    selectedIssuerBic: [],
-    selectedIssuerBicCountry: [],
-    selectedCounterParty: [],
-    selectedCounterPartyCountry: [],
-    selectedIncomingAuths: [],
-    selectedOutgoingAuths: [],
+    myBICs: [],
+    corrBICs: [],
+    countryCode: [],
+    inTraffic: [],
+    outTraffic: [],
+    pageSize: 50,
+    PageCount: 1,
+    beginRecord: 1,
+    sortKey: 1,
   };
 
   constructor(private searchApiService: SearchApiService, private searchService: SearchService) { }
@@ -85,17 +87,13 @@ export class SearchContainer implements OnInit {
   getSearchResults(counterPartyText: string) {
     console.log("Search clicked", this.filters, counterPartyText);
     this.counterPartyText = counterPartyText;
-    this.filters.counterPartyText = counterPartyText;
     const counterPartyList = this.searchService.filterCounterPartyList(counterPartyText);
-    this.filters.counterPartyBics = counterPartyList.map((myBic: any) => myBic.bicCode);
+    this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
     this.isSearchClicked = true;
     if (counterPartyText) {
       this.searchApiService.getRelations(this.filters).subscribe(data => {
         this.searchResults = data;
-
       });
-    } else {
-      this.searchResults = [];
     }
   }
 

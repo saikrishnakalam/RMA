@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, HostListener, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { RmaAuthorisation, RmaBIC, RmaFilter, Authorisation, Country } from 'src/app/core';
+import { RmaAuthorisation, RmaBIC, RmaFilter, Authorisation, Country, RmaAuthorisationWithPagination } from 'src/app/core';
 import { SearchService } from '../../services/search.service';
 import { SearchApiService } from '../../services/search-api.service';
 
@@ -22,7 +22,7 @@ export class SearchResultsComponent implements OnInit {
 
   @Output() clickedAdvancedSearch = new EventEmitter();
   @Output() detailsClicked = new EventEmitter();
-  @Input() counterPartySearchResults: RmaAuthorisation[] = [];
+  @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
   
   @Input() counterPartyText: string | undefined;
   searchedText: string | undefined;
@@ -64,7 +64,7 @@ export class SearchResultsComponent implements OnInit {
     checked: false
   }];
   @Input() filters: RmaFilter = {
-    selectedIssuerBic: []
+    myBICs: []
   };
   @Output() selectedFilters = new EventEmitter();
 
@@ -88,7 +88,8 @@ export class SearchResultsComponent implements OnInit {
 
     const rawIssuerBicList = localStorage.getItem('issuerBicList');
     this.issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
-    console.log(this.counterPartyText);
+    console.log(this.issuerBicList);
+    this.searchService.setMyBics(this.issuerBicList);
     this.countriesListForDropdown = this.searchService.countriesList as CounterPartyCountryBICDropDownData[];
     //this.searchedText = this.counterPartyText;
   }
@@ -96,9 +97,9 @@ export class SearchResultsComponent implements OnInit {
   toggleIssuerBic(issuerBic: IssuerBICDropDownData) {
     issuerBic.checked = !issuerBic.checked;
     if (issuerBic.checked) {
-      this.filters.selectedIssuerBic?.push(issuerBic.bicCode);
+      this.filters.myBICs?.push(issuerBic.bicCode);
     } else {
-      this.filters.selectedIssuerBic = this.filters.selectedIssuerBic?.filter(elem => elem !== issuerBic.bicCode);
+      this.filters.myBICs = this.filters.myBICs?.filter(elem => elem !== issuerBic.bicCode);
     }
     this.selectedFilters.emit(this.filters);
   }
@@ -106,9 +107,9 @@ export class SearchResultsComponent implements OnInit {
   toggleCounterPartyCountryDropDown(counterPartyCountry: CounterPartyCountryBICDropDownData) {
     counterPartyCountry.checked = !counterPartyCountry.checked;
     if (counterPartyCountry.checked) {
-      this.filters.selectedCounterPartyCountry?.push(counterPartyCountry.countryCode);
+      this.filters.countryCode?.push(counterPartyCountry.countryCode);
     } else {
-      this.filters.selectedCounterPartyCountry = this.filters.selectedCounterPartyCountry?.filter(elem => elem !== counterPartyCountry.countryCode);
+      this.filters.countryCode = this.filters.countryCode?.filter(elem => elem !== counterPartyCountry.countryCode);
     }
     this.selectedFilters.emit(this.filters);
   }
@@ -116,9 +117,9 @@ export class SearchResultsComponent implements OnInit {
   toggleIncomingAuthDropDown(incomingAuth: any) {
     incomingAuth.checked = !incomingAuth.checked;
     if (incomingAuth.checked) {
-      this.filters.selectedIncomingAuths?.push(incomingAuth.code);
+      this.filters.inTraffic?.push(incomingAuth.code);
     } else {
-      this.filters.selectedIncomingAuths = this.filters.selectedIncomingAuths?.filter(elem => elem !== incomingAuth.code);
+      this.filters.inTraffic = this.filters.inTraffic?.filter(elem => elem !== incomingAuth.code);
     }
     this.selectedFilters.emit(this.filters);
   }
@@ -126,26 +127,26 @@ export class SearchResultsComponent implements OnInit {
   toggleOutgoingAuthDropDown(outgoingAuth: any) {
     outgoingAuth.checked = !outgoingAuth.checked;
     if (outgoingAuth.checked) {
-      this.filters.selectedOutgoingAuths?.push(outgoingAuth.code);
+      this.filters.outTraffic?.push(outgoingAuth.code);
     } else {
-      this.filters.selectedOutgoingAuths = this.filters.selectedOutgoingAuths?.filter(elem => elem !== outgoingAuth.code);
+      this.filters.outTraffic = this.filters.outTraffic?.filter(elem => elem !== outgoingAuth.code);
     }
     this.selectedFilters.emit(this.filters);
   }
   resetIssuerBicsFilter() {
-    this.filters.selectedIssuerBic = [];
+    this.filters.myBICs = [];
     this.issuerBicList.map(issuerBic => issuerBic.checked = false);
   }
   resetCounterPartyCountriesFilter() {
-    this.filters.selectedCounterPartyCountry = [];
+    this.filters.countryCode = [];
     this.countriesListForDropdown.map(country => country.checked = false);
   }
   resetIncomingAuthsFilter() {
-    this.filters.selectedIncomingAuths = [];
+    this.filters.inTraffic = [];
     this.incomingAuthorisationList.map(incomingAuthorisation => incomingAuthorisation.checked = false);
   }
   resetOutgoingAuthsFilter() {
-    this.filters.selectedOutgoingAuths = [];
+    this.filters.outTraffic = [];
     this.outgoingAuthorisationList.map(outgoingAuthorisation => outgoingAuthorisation.checked = false);
   }
 

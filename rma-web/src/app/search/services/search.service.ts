@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
 import { formatDate } from '@angular/common';
 
-import { RmaBIC, RmaAuthorisation, Authorisation, Country } from 'src/app/core';
+import { RmaBIC, RmaAuthorisation, Authorisation, Country, RmaFilter } from 'src/app/core';
 
 @Injectable()
 export class SearchService {
+	myBics: RmaBIC[] = [];
 	counterPartyBics: RmaBIC[] = [];
 	counterPartyText: string = '';
 	selectedCounterPartyFromSearch: RmaBIC | undefined;
 	countriesList: Country[] = [];
+	filters: RmaFilter = {
+		myBICs: [],
+		corrBICs: [],
+		countryCode: [],
+		inTraffic: [],
+		outTraffic: [],
+		pageSize: 50,
+		PageCount: 1,
+		beginRecord: 1,
+		sortKey: 1,
+	  };
 	constructor() { }
 
 	getCounterPartyBics(): RmaBIC[] {
@@ -17,6 +29,14 @@ export class SearchService {
 
 	setCounterPartyBics(counterPartyBics: RmaBIC[]): void {
 		this.counterPartyBics = counterPartyBics;
+	}
+
+	getMyBics(): RmaBIC[] {
+		return this.myBics;
+	}
+
+	setMyBics(myBics: RmaBIC[]): void {
+		this.myBics = myBics;
 	}
 
 	getCountries(): Country[] {
@@ -55,9 +75,8 @@ export class SearchService {
 		if (counterParty === '' || counterParty === null) {
 			return [];
 		}
-
-		return counterParty ?
-			this.compare(counterParty, this.counterPartyBics.filter(s => (s.bicCode.toLowerCase().indexOf(counterParty.toLowerCase()) != -1) || (s.institutionName.toLowerCase().indexOf(counterParty.toLowerCase()) != -1)))
+		console.log(this.counterPartyBics);
+		return counterParty ? this.counterPartyBics.filter(s => (s.bicCode.toLowerCase().indexOf(counterParty.toLowerCase()) != -1) || (s.institutionName.toLowerCase().indexOf(counterParty.toLowerCase()) != -1))
 			: [];
 	}
 	getStatusByCode(status: string) {
@@ -74,16 +93,20 @@ export class SearchService {
 		return this.counterPartyBics.find(bic => bic.bicCode == code);
 	}
 
+	getMyBicByCode(code: string) {
+		return this.myBics.find(bic => bic.bicCode == code);
+	}
+
 	// Determines the incoming authorisation status
 	getOverallIncomingAuthStatus(counterparty: RmaAuthorisation) {
 		let numAuthorised = 0;
 		if (counterparty !== undefined) {
-			for (let i = 0; i < counterparty.incomingAuths?.length; i++) {
-				if (this.getAuthStatusDetails(counterparty.incomingAuths[i]) == "A") {
+			for (let i = 0; i < counterparty.inTraffic?.length; i++) {
+				if (counterparty.inTraffic[i] == "A") {
 					numAuthorised++;
 				}
 			}
-			if (numAuthorised == counterparty.incomingAuths?.length) {
+			if (numAuthorised == counterparty.inTraffic?.length) {
 				return "Authorised";
 			}
 			else if (numAuthorised == 0) {
@@ -102,12 +125,12 @@ export class SearchService {
 	getOverallOutgoingAuthStatus(counterparty: RmaAuthorisation) {
 		let numAuthorised = 0;
 		if (counterparty !== undefined) {
-			for (let i = 0; i < counterparty.outgoingAuths?.length; i++) {
-				if (this.getAuthStatusDetails(counterparty.outgoingAuths[i]) == "A") {
+			for (let i = 0; i < counterparty.outTraffic?.length; i++) {
+				if (counterparty.outTraffic[i] == "A") {
 					numAuthorised++;
 				}
 			}
-			if (numAuthorised == counterparty.outgoingAuths?.length) {
+			if (numAuthorised == counterparty.outTraffic?.length) {
 				return "Authorised";
 			}
 			else if (numAuthorised == 0) {
@@ -124,7 +147,7 @@ export class SearchService {
 
 	// Determines the correct image to display next to the overall incoming status
 	getOverallIncomingImageSrc(status: string) {
-		if (status == "A") {
+		if (status == "Authorized") {
 			return "assets/images/details/authorised.png";
 		}
 		else if (status == "Partly authorised") {
@@ -138,10 +161,10 @@ export class SearchService {
 	// Determines the correct image to display next to the overall outgoing status
 	getOverallOutgoingImageSrc(status: string) {
 
-		if (status == "A") {
+		if (status == "Authorized") {
 			return "assets/images/details/authorised.png";
 		}
-		else if (status == "Partly authorised") {
+		else if (status == "Partly authorized") {
 			return "assets/images/details/partly_authorised.png";
 		}
 		else {
@@ -151,7 +174,7 @@ export class SearchService {
 
 	// Determines the authorisation status, taking expiration into account
 	getAuthStatusDetails(auth: Authorisation) {
-		if (auth.authStatus != "A" || !this.authIsExpired(auth)) {
+		if (auth.authStatus != "Authorised" || !this.authIsExpired(auth)) {
 			return auth.authStatus;
 		}
 		else {

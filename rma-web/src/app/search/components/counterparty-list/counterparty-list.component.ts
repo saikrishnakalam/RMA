@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { RmaAuthorisation } from 'src/app/core';
+import { RmaAuthorisation, RmaAuthorisationWithPagination } from 'src/app/core';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -28,5 +28,8 @@ export class CounterpartyListComponent implements OnInit {
   }
   getBicByCode(code: string) {
     return this.searchService.getBicByCode(code);
+  }
+  getMyBicByCode(code: string) {
+    return this.searchService.getMyBicByCode(code);
   }
 }

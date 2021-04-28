@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { RmaAuthorisation, Authorisation } from 'src/app/core';
+import { RmaAuthorisation, Authorisation, RmaAuthorisationWithPagination } from 'src/app/core';
 
 @Component({
 	selector: 'app-counterparty-details-component',
@@ -8,9 +8,9 @@ import { RmaAuthorisation, Authorisation } from 'src/app/core';
 	styleUrls: ['./counterparty-details.component.scss']
 })
 export class CounterpartyDetailsComponent implements OnInit {
-	@Input() counterparty: RmaAuthorisation | undefined;
+	@Input() counterparty: any;//RmaAuthorisationWithPagination | undefined;
 	@Output() backToList = new EventEmitter();
-	@Input() counterPartySearchResults: RmaAuthorisation[] = [];
+	@Input() counterPartySearchResults: any;//RmaAuthorisationWithPagination | undefined;
 	curPosition = -1;
 
 	ngOnInit() {
@@ -26,8 +26,8 @@ export class CounterpartyDetailsComponent implements OnInit {
 	// Finds the position of the current counterparty in the search results array
 	findCurrentLocationInList() {
 		if (this.counterparty !== undefined) {
-			for (let i = 0; i < this.counterPartySearchResults.length; i++) {
-				if (this.counterPartySearchResults[i].id == this.counterparty.id) {
+			for (let i = 0; i < this.counterPartySearchResults!.data.length; i++) {
+				if (this.counterPartySearchResults!.data[i] == this.counterparty.data[i]) {
 					return i;
 				}
 			}
@@ -73,8 +73,8 @@ export class CounterpartyDetailsComponent implements OnInit {
 	getOverallIncomingAuthStatus() {
 		let numAuthorised = 0;
 		if (this.counterparty !== undefined) {
-			for (let i = 0; i < this.counterparty.incomingAuths.length; i++) {
-				if (this.getAuthStatusDetails(this.counterparty.incomingAuths[i]) == "Authorised") {
+			for (let i = 0; i < this.counterparty.inTraffic.length; i++) {
+				if (this.getAuthStatusDetails(this.counterparty.inTraffic[i]) == "Authorised") {
 					numAuthorised++;
 				}
 			}

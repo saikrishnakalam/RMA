@@ -1,19 +1,25 @@
 import { RmaBIC } from './rma-bic.model';
 
+interface ExpiryDate {
+  year: string;
+  month: string;
+  day: string;
+}
 export interface RmaAuthorisation {
-  id: number,
-  issuerBic: string,
-  myBicName: string,
-  myBicCity: string,
-  myBicCountry: string,
-  correspondentBic: string,
-  counterPartyBicName: string,
-  counterPartyBicCity: string,
-  counterPartyBicCountry: string,
-  incomingStatus: string,
-  outgoingStatus: string,
-  incomingAuths: Authorisation[];
-  outgoingAuths: Authorisation[];
+  counterPartyBIC: string,
+  myBIC: string,
+  inTraffic: string,
+  outTraffic: string,
+  inExpiry: ExpiryDate,
+  outExpiry: ExpiryDate
+}
+
+export interface RmaAuthorisationWithPagination {
+  pageNumber: number;
+  beginRecord: number;
+  endRecord: number;
+  recordCountInPage: number;
+  recordList: RmaAuthorisation[]
 }
 
 export interface Authorisation {

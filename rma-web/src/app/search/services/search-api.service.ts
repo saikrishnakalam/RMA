@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { map } from 'rxjs/operators';
-import { RmaBIC, RmaAuthorisation, RmaFilter, ApiService, Country } from 'src/app/core';
+import { RmaBIC, RmaAuthorisationWithPagination, RmaFilter, ApiService, Country } from 'src/app/core';
 
 @Injectable()
 export class SearchApiService {
@@ -17,52 +17,52 @@ export class SearchApiService {
     return this.apiService.get('getCountries').pipe(map((data: Country[]) => data));
   }
 
-  getRelations(selectedFilters: RmaFilter): Observable<RmaAuthorisation[]> {
-    let params = new HttpParams();
+  getRelations(selectedFilters: RmaFilter): Observable<RmaAuthorisationWithPagination[]> {
+    //let params = new HttpParams();
     let body: any = {
       beginRecord: 1,
       pageSize: 50,
       pageCount: 7,
       sortKey: 1
     };
-    if (selectedFilters.selectedIssuerBic && selectedFilters.selectedIssuerBic.length > 0) {
-      params = params.append('myBics', selectedFilters.selectedIssuerBic.toString());
-      body = { ...body, myBics: selectedFilters.selectedIssuerBic.toString() };
+    if (selectedFilters.myBICs && selectedFilters.myBICs.length > 0) {
+     // params = params.append('myBics', selectedFilters.myBICs.toString());
+      body = { ...body, myBics: selectedFilters.myBICs.toString() };
     } else {
       const rawIssuerBicList = localStorage.getItem('issuerBicList');
       const issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
       let result = issuerBicList.map((myBic: any) => myBic.bicCode);
-      params = params.append('myBics', result.toString());
-      body = { ...body, myBics: result.toString() };
+     // params = params.append('myBics', result.toString());
+      body = { ...body, myBics: result };
     }
 
-    if (selectedFilters.counterPartyBics && selectedFilters?.counterPartyBics.length != null) {
-      params = params.append('counterPartyText', selectedFilters?.counterPartyBics.toString());
-      body = { ...body, corrBICs: selectedFilters.counterPartyBics };
+    if (selectedFilters.corrBICs && selectedFilters?.corrBICs.length != null) {
+      //params = params.append('counterPartyText', selectedFilters?.corrBICs.toString());
+      body = { ...body, corrBICs: selectedFilters.corrBICs };
     }
-    if (selectedFilters.selectedCounterPartyCountry && selectedFilters.selectedCounterPartyCountry.length > 0) {
-      params = params.append('counterPartyCountryCodes', selectedFilters.selectedCounterPartyCountry.toString())
-      body = { ...body, countryCode: selectedFilters.selectedCounterPartyCountry.toString() };
-    }
-
-    if (selectedFilters.selectedIncomingAuths && selectedFilters.selectedIncomingAuths.length > 0) {
-      params = params.append('incomingTrafficOptions', selectedFilters.selectedIncomingAuths.toString());
-      body = { ...body, inTraffic: selectedFilters.selectedIncomingAuths.toString() };
+    if (selectedFilters.countryCode && selectedFilters.countryCode.length > 0) {
+      //params = params.append('counterPartyCountryCodes', selectedFilters.countryCode.toString())
+      body = { ...body, countryCode: selectedFilters.countryCode.toString() };
     }
 
-    if (selectedFilters.selectedOutgoingAuths && selectedFilters.selectedOutgoingAuths.length > 0) {
-      params = params.append('outgoingTrafficOptions', selectedFilters.selectedOutgoingAuths.toString());
-      body = { ...body, outTraffic: selectedFilters.selectedOutgoingAuths.toString() };
+    if (selectedFilters.inTraffic && selectedFilters.inTraffic.length > 0) {
+     // params = params.append('incomingTrafficOptions', selectedFilters.inTraffic.toString());
+      body = { ...body, inTraffic: selectedFilters.inTraffic.toString() };
     }
 
-    params = params.append('startRecordNumber', '1');
-    params = params.append('pageSize', '50');
-    params = params.append('numberOfPages', '7');
-    params = params.append('sortKey', 'BESTMATCH');
+    if (selectedFilters.outTraffic && selectedFilters.outTraffic.length > 0) {
+     // params = params.append('outgoingTrafficOptions', selectedFilters.outTraffic.toString());
+      body = { ...body, outTraffic: selectedFilters.outTraffic.toString() };
+    }
+
+    // params = params.append('startRecordNumber', '1');
+    // params = params.append('pageSize', '50');
+    // params = params.append('numberOfPages', '7');
+    // params = params.append('sortKey', 'BESTMATCH');
 
     console.log(body);
     return this.apiService.post('getAuthInfo', body)
-      .pipe(map((data: RmaAuthorisation[]) => data));
+      .pipe(map((data: RmaAuthorisationWithPagination[]) => data));
   }
 
 }
