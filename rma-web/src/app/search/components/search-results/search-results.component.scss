@@ -3702,6 +3702,17 @@
   z-index: 1008;
 }
 
+.dropdown-wrapper {
+  background: inherit;
+  background-color: white;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #027c95;
+  border-radius: 0px;
+  box-shadow: none;
+  height: 220px;
+}
 .counterPartyCountryDropDown {
   border-width: 0px;
   position: absolute;
@@ -3720,12 +3731,15 @@
     text-align: left;
     z-index: 11;
 }
+.issuerBICDropDown {
+  left: 395px;
+  top: 210px;
+  position: absolute;
+}
 
-.issuerBICDropDown > .ax_default {
+.dropdown > .ax_default {
   border-width: 0px;
-    position: absolute;
-    left: 395px;
-    top: 209px;
+    position: relative;
     width: 243px;
     height: 154px;
     text-align: left;
@@ -3753,17 +3767,10 @@
 
 .counterPartyCountryDropDown_div{
   border-width: 0px;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 243px;
-  height: 154px;
-  background: inherit;
-  background-color: white;
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #027c95;
+  position: relative;
+  width: 250px;
+  height: 180px;
+  overflow-y: scroll;
   border-radius: 0px;
   box-shadow: none;
   text-align: left;
@@ -3772,19 +3779,25 @@
 .counterPartyCountryDropDown_text{
   border-width: 0px;
   position: relative;
-  left: 10px;
-  top: 10px;
-  width: 220px;
+  width: 235px;
   height: 36px;
   color: #222222;
   font-size: 14px;
   word-wrap: break-word;
   cursor: pointer;
 }
+.counterPartyCountryDropDown_text:hover {
+  background-color: #E6F2F4;
+}
+.counterPartyCountryDropDown_text > p {
+  padding: 8px 4px 4px 8px;
+}
+
 .counterPartyCountryDropDown_buttons_div {
-  position: absolute;
+  position: relative;
   bottom: 0px;
   width: -webkit-fill-available;
+  background-color: #ffffff;
 }
 .counterPartyCountryDropDown_buttons_div>.swift_secondary_button {
   width: 49%;
