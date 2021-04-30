@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-import { Country } from "src/app/core";
+import { Country, RmaBIC } from "src/app/core";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.appService.getCountries().subscribe((countriesList: Country[]) => {
       localStorage.setItem("countriesList", JSON.stringify(countriesList));
+    });
+    this.appService.getIssuerBic().subscribe((countriesList: RmaBIC[]) => {
+      localStorage.setItem("issuerBicList", JSON.stringify(countriesList));
     });
   }
 }

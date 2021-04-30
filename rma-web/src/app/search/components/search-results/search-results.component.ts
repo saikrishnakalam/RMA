@@ -66,6 +66,12 @@ export class SearchResultsComponent implements OnInit {
   @Input() filters: RmaFilter = {
     myBICs: []
   };
+
+  pageNo:number = 1;
+  noOfPages:number = 7;
+  sortKey:number = 1;
+
+
   @Output() selectedFilters = new EventEmitter();
 
 
@@ -179,6 +185,11 @@ export class SearchResultsComponent implements OnInit {
     this.resetCounterPartyCountriesFilter();
     this.resetIncomingAuthsFilter();
     this.resetOutgoingAuthsFilter();
+  }
+
+  goToPageNumber(pageNumber: number){
+    console.log(pageNumber);
+    this.pageNo = pageNumber;
   }
 
 }

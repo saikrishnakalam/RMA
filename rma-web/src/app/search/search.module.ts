@@ -12,13 +12,14 @@ import { NoResultsComponent } from './components/no-results/no-results.component
 import { SharedModule } from '../shared';
 import { SearchApiService } from './services/search-api.service';
 import { SearchService } from './services/search.service';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [SearchContainer, 
     SearchComponent, SearchResultsComponent, 
     AdvancedSearchComponent, CounterpartyDetailsComponent,
     CounterpartyListComponent, SearchAutocompleteComponent,
-    NoResultsComponent],
+    NoResultsComponent, PaginationComponent],
   imports: [
     CommonModule,
     SearchRoutingModule,
