@@ -6,8 +6,8 @@ interface ExpiryDate {
   day: string;
 }
 export interface RmaAuthorisation {
-  counterPartyBIC: string,
-  myBIC: string,
+  correspondentBic: string,
+  issuerBic: string,
   inTraffic: string,
   outTraffic: string,
   inExpiry: ExpiryDate,
