@@ -3701,6 +3701,13 @@
 .ax_default_show {
   z-index: 1008;
 }
+.ax_show_border {
+  box-sizing: border-box;
+  border-width: 1px !important;
+  border-style: solid;
+  border-color: #027c95 !important;
+  border-radius: 0px;
+}
 
 .dropdown-wrapper {
   background: inherit;
@@ -3711,65 +3718,39 @@
   border-color: #027c95;
   border-radius: 0px;
   box-shadow: none;
-  height: 220px;
+  max-height: 220px;
 }
 .counterPartyCountryDropDown {
-  border-width: 0px;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 0px;
-  height: 0px;
-}
-.counterPartyCountryDropDown > .ax_default {
-  border-width: 0px;
-    position: absolute;
-    left: 513px;
-    top: 209px;
-    width: 243px;
-    height: 154px;
-    text-align: left;
-    z-index: 11;
+  left: 513px;
+  top: 210px;
 }
 .issuerBICDropDown {
   left: 395px;
   top: 210px;
   position: absolute;
 }
-
-.dropdown > .ax_default {
-  border-width: 0px;
-    position: relative;
-    width: 243px;
-    height: 154px;
-    text-align: left;
+.issuerBICDropDown > .dropdown-wrapper {
+  height: 220px;
 }
 
-.incomingAuthDropdown > .ax_default {
-  border-width: 0px;
+.incomingAuthDropdown{
     position: absolute;
     left: 717px;
-    top: 209px;
-    width: 243px;
-    height: 154px;
-    text-align: left;
+    top: 210px;
 }
 
-.outgoingAuthDropdown > .ax_default {
-    border-width: 0px;
+.outgoingAuthDropdown {
     position: absolute;
     left: 882px;
     top: 209px;
-    width: 243px;
-    height: 154px;
-    text-align: left;
 }
 
 .counterPartyCountryDropDown_div{
   border-width: 0px;
   position: relative;
   width: 250px;
-  height: 180px;
+  max-height: 180px;
   overflow-y: scroll;
   border-radius: 0px;
   box-shadow: none;

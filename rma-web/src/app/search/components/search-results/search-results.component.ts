@@ -80,14 +80,37 @@ export class SearchResultsComponent implements OnInit {
     private eleRef: ElementRef) { }
 
   @HostListener("document:click", ["$event"])
-  docEvent(mouseEvent: any) {
+  onClick(mouseEvent: any) {
     const paths = mouseEvent.path;
+    console.log(paths);
     if (!paths.some((p: any) => p === this.eleRef.nativeElement)) {
-      this.showBicDropDown = false;
-      this.showCountryCounterPartyDropDown = false;
-      this.showIncomingTrafficDropDown = false;
-      this.showOutgoingTrafficDropDown = false;
+      this.closeAllDropDowns();
+    }else if(this.eleRef.nativeElement.contains(mouseEvent.target)){
+      console.log("Show bic", mouseEvent.target.innerHTML);
+      if(mouseEvent.target.innerHTML === 'My BIC'){
+        this.showCountryCounterPartyDropDown = false;
+        this.showIncomingTrafficDropDown = false;
+        this.showOutgoingTrafficDropDown = false;
+      }else if(mouseEvent.target.innerHTML === 'Country counterparty'){
+        this.showBicDropDown = false;
+        this.showIncomingTrafficDropDown = false;
+        this.showOutgoingTrafficDropDown = false;
+      } else if(mouseEvent.target.innerHTML === 'Incoming traffic'){
+        this.showCountryCounterPartyDropDown = false;
+        this.showBicDropDown = false;
+        this.showOutgoingTrafficDropDown = false;
+      } else if(mouseEvent.target.innerHTML === 'Outgoing traffic'){
+        this.showCountryCounterPartyDropDown = false;
+        this.showIncomingTrafficDropDown = false;
+        this.showBicDropDown = false;
+      }
     }
+  }
+  closeAllDropDowns(){
+    this.showBicDropDown = false;
+    this.showCountryCounterPartyDropDown = false;
+    this.showIncomingTrafficDropDown = false;
+    this.showOutgoingTrafficDropDown = false;
   }
 
   ngOnInit(): void {

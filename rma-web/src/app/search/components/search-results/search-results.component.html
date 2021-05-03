@@ -10,8 +10,8 @@
 <div id="u466" class="ax_default" data-left="0" data-top="0" data-width="87" data-height="36">
   <div>
     <!-- Unnamed (Rectangle) -->
-    <div id="u467" class="ax_default swift_box_1" style="cursor: pointer;" (click)="showBicDropDown = !showBicDropDown">
-      <div id="u467_div" class=""></div>
+    <div id="u467"  class="ax_default swift_box_1" style="cursor: pointer;" (click)="showBicDropDown = !showBicDropDown">
+      <div id="u467_div" [ngClass]="showBicDropDown ? 'ax_show_border':''"></div>
       <div id="u467_text" class="text ">
         <p><span>My BIC</span></p>
       </div>
@@ -46,7 +46,7 @@
               <p><span>Reset</span></p>
             </div>
           </div>
-          <div data-label="save button" [ngClass]="filters.myBICs!.length > 0 ? 'save-enabled': 'save-disabled'"
+          <div data-label="save button" (click)="filters.myBICs!.length > 0 ? showBicDropDown = false : ''" [ngClass]="filters.myBICs!.length > 0 ? 'save-enabled': 'save-disabled'"
             class="ax_default swift_secondary_button">
             <div class="counterPartyCountryDropDown_buttons_text">
               <p><span>Save filter</span></p>
@@ -66,12 +66,12 @@
 <div id="u501" class="ax_default" data-left="0" data-top="0" data-width="175" data-height="36">
 
   <!-- Unnamed (Group) -->
-  <div id="u502" class="ax_default" data-left="0" data-top="0" data-width="175" data-height="36">
+  <div id="u502"  data-left="0" data-top="0" data-width="175" data-height="36">
 
     <!-- Incoming traffic line (Rectangle) -->
-    <div id="u503" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+    <div id="u503"  class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
       (click)="showCountryCounterPartyDropDown = !showCountryCounterPartyDropDown">
-      <div id="u503_div" class=""></div>
+      <div id="u503_div" [ngClass]="showCountryCounterPartyDropDown ? 'ax_show_border':''"></div>
       <div id="u503_text" class="text ">
         <p><span>Country counterparty</span></p>
       </div>
@@ -117,7 +117,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
       </div>
 
       <!-- save button (Rectangle) -->
-      <div class="ax_default swift_secondary_button" data-label="save button"
+      <div class="ax_default swift_secondary_button" data-label="save button" (click)="filters.myBICs!.length > 0 ? showCountryCounterPartyDropDown = false : ''"
         [ngClass]="filters.countryCode!.length > 0 ? 'save-enabled': 'save-disabled'">
         <div class="counterPartyCountryDropDown_buttons_text">
           <p><span>Save filter</span></p>
@@ -144,12 +144,12 @@ data-left="0" data-top="0" data-width="0" data-height="0">
 <div id="u471" class="ax_default" data-left="0" data-top="0" data-width="136" data-height="36">
 
   <!-- Unnamed (Group) -->
-  <div id="u472" class="ax_default" data-left="0" data-top="0" data-width="136" data-height="36">
+  <div id="u472" data-left="0" data-top="0" data-width="136" data-height="36">
 
     <!-- Incoming traffic line (Rectangle) -->
-    <div id="u473" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+    <div id="u473"  class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
       (click)="showIncomingTrafficDropDown = !showIncomingTrafficDropDown">
-      <div id="u473_div" class=""></div>
+      <div id="u473_div" [ngClass]="showIncomingTrafficDropDown ? 'ax_show_border':''"></div>
       <div id="u473_text" class="text ">
         <p><span>Incoming traffic</span></p>
       </div>
@@ -168,12 +168,12 @@ data-left="0" data-top="0" data-width="0" data-height="0">
   </div>
 
   <!-- dropdown (Group) -->
-  <div id="u475" class="ax_default incomingAuthDropdown" data-label="dropdown"
+  <div class="ax_default incomingAuthDropdown" data-label="dropdown"
     [ngClass]="showIncomingTrafficDropDown ? 'ax_default_show': 'ax_default_hidden'" data-left="0" data-top="0"
     data-width="0" data-height="0">
 
     <!-- Unnamed (Rectangle) -->
-    <div class="ax_default swift_box_1">
+    <div class="ax_default swift_box_1 dropdown-wrapper">
       <!-- Unnamed (Rectangle) -->
       <div class="counterPartyCountryDropDown_div">
         <!-- Unnamed (Rectangle) -->
@@ -196,7 +196,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
           </div>
 
           <!-- save button (Rectangle) -->
-          <div class="ax_default swift_secondary_button" data-label="save button"
+          <div class="ax_default swift_secondary_button" data-label="save button" (click)="filters.myBICs!.length > 0 ? showIncomingTrafficDropDown = false : ''"
             [ngClass]="filters.inTraffic!.length > 0 ? 'save-enabled': 'save-disabled'">
             <div class="counterPartyCountryDropDown_buttons_text">
               <p><span>Save filter</span></p>
@@ -217,12 +217,12 @@ data-left="0" data-top="0" data-width="0" data-height="0">
 <div id="u486" class="ax_default" data-left="0" data-top="0" data-width="138" data-height="36">
 
   <!-- Unnamed (Group) -->
-  <div id="u487" class="ax_default" data-left="0" data-top="0" data-width="138" data-height="36">
+  <div id="u487" data-left="0" data-top="0" data-width="138" data-height="36">
 
     <!-- Incoming traffic line (Rectangle) -->
-    <div id="u488" class="ax_default swift_box_1" data-label="Incoming traffic line" style="cursor: pointer;"
+    <div id="u488" class="ax_default swift_box_1"  data-label="Incoming traffic line" style="cursor: pointer;"
       (click)="showOutgoingTrafficDropDown = !showOutgoingTrafficDropDown">
-      <div id="u488_div" class=""></div>
+      <div id="u488_div" [ngClass]="showOutgoingTrafficDropDown ? 'ax_show_border':''"></div>
       <div id="u488_text" class="text ">
         <p><span>Outgoing traffic</span></p>
       </div>
@@ -240,11 +240,11 @@ data-left="0" data-top="0" data-width="0" data-height="0">
   </div>
 
   <!-- dropdown (Group) -->
-  <div id="u490" class="ax_default outgoingAuthDropdown" data-label="dropdown"
+  <div class="ax_default outgoingAuthDropdown" data-label="dropdown"
     [ngClass]="showOutgoingTrafficDropDown ? 'ax_default_show': 'ax_default_hidden'" data-left="0" data-top="0"
     data-width="0" data-height="0">
 
-    <div class="ax_default swift_box_1">
+    <div class="ax_default swift_box_1 dropdown-wrapper">
       <!-- Unnamed (Rectangle) -->
       <div class="counterPartyCountryDropDown_div">
         <!-- Unnamed (Rectangle) -->
@@ -267,7 +267,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
           </div>
 
           <!-- save button (Rectangle) -->
-          <div class="ax_default swift_secondary_button" data-label="save button"
+          <div class="ax_default swift_secondary_button" data-label="save button" (click)="filters.myBICs!.length > 0 ? showOutgoingTrafficDropDown = false : ''"
             [ngClass]="filters.outTraffic!.length > 0 ? 'save-enabled': 'save-disabled'">
             <div class="counterPartyCountryDropDown_buttons_text">
               <p><span>Save filter</span></p>

@@ -27,7 +27,6 @@ export class PaginationComponent implements OnInit{
 
     clickedOnPageNumber(pageNumber: number){
         this.currentPage = pageNumber;
-        this.goToPageNumber.emit(pageNumber);
         this.goToPageNumber.emit({clickedOn: 'pageNo',pageNumber:this.currentPage, paginationItems: this.paginationItems});
     }
 
