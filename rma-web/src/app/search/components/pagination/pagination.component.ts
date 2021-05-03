@@ -1,18 +1,23 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { RmaAuthorisationWithPagination } from "src/app/core"
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { RmaAuthorisationWithPagination } from "src/app/core";
 
 @Component({
     selector: 'app-search-pagination-component',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit{
     @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
+    paginationItems: RmaAuthorisationWithPagination[] = [];
     @Output() goToPageNumber = new EventEmitter();
     currentPage: number = 1;
     totalPages: number = 7;
 
     constructor() { }
+
+    ngOnInit(){
+        this.paginationItems = this.counterPartySearchResults;
+    }
 
     clickedOnPageNumber(pageNumber: number){
         this.currentPage = pageNumber;
@@ -20,10 +25,10 @@ export class PaginationComponent {
     }
 
     goToNextPage(){
-        if(this.currentPage < this.counterPartySearchResults.length){
+        //if(this.currentPage < this.counterPartySearchResults.length){
             this.currentPage = this.currentPage+1;
             this.goToPageNumber.emit(this.currentPage);
-        }
+        //}
         console.log(this.currentPage);
         
     }

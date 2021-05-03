@@ -87,53 +87,54 @@
       <img id="u504_img" class="img " src="assets/images/no_results/u87.png" />
     </div>
   </div>
-</div>
-
-<!-- Unnamed (Left navigaiton) -->
+  <!-- Unnamed (Left navigaiton) -->
 <div class="ax_default counterPartyCountryDropDown"
-  [ngClass]="showCountryCounterPartyDropDown ? 'ax_default_show': 'ax_default_hidden'" data-label="dropdown my bic"
-  data-left="0" data-top="0" data-width="0" data-height="0">
+[ngClass]="showCountryCounterPartyDropDown ? 'ax_default_show': 'ax_default_hidden'" data-label="dropdown my bic"
+data-left="0" data-top="0" data-width="0" data-height="0">
 
+<!-- Unnamed (Rectangle) -->
+<div class="ax_default swift_box_1 dropdown-wrapper">
   <!-- Unnamed (Rectangle) -->
-  <div class="ax_default swift_box_1">
+  <div class="counterPartyCountryDropDown_div">
     <!-- Unnamed (Rectangle) -->
-    <div class="counterPartyCountryDropDown_div">
-      <!-- Unnamed (Rectangle) -->
 
-      <div (click)="toggleCounterPartyCountryDropDown(country)" class="counterPartyCountryDropDown_text"
-        *ngFor="let country of countriesListForDropdown">
-        <p>
-          <span>{{country.countryName}}</span>
-          <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="country.checked" />
-        </p>
-      </div>
-
-      <div class="counterPartyCountryDropDown_buttons_div">
-        <!-- Reset button (Rectangle) -->
-        <div class="ax_default swift_secondary_button" data-label="Reset button"
-          (click)="resetCounterPartyCountriesFilter()"
-          [ngClass]="filters.countryCode!.length > 0 ? 'reset-enabled': 'reset-disabled'">
-          <div class="counterPartyCountryDropDown_buttons_text">
-            <p><span>Reset</span></p>
-          </div>
-        </div>
-
-        <!-- save button (Rectangle) -->
-        <div class="ax_default swift_secondary_button" data-label="save button"
-          [ngClass]="filters.countryCode!.length > 0 ? 'save-enabled': 'save-disabled'">
-          <div class="counterPartyCountryDropDown_buttons_text">
-            <p><span>Save filter</span></p>
-          </div>
-        </div>
-
-
-      </div>
+    <div (click)="toggleCounterPartyCountryDropDown(country)" class="counterPartyCountryDropDown_text"
+      *ngFor="let country of countriesListForDropdown">
+      <p>
+        <span>{{country.countryName}}</span>
+        <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="country.checked" />
+      </p>
     </div>
 
+    <div class="counterPartyCountryDropDown_buttons_div">
+      <!-- Reset button (Rectangle) -->
+      <div class="ax_default swift_secondary_button" data-label="Reset button"
+        (click)="resetCounterPartyCountriesFilter()"
+        [ngClass]="filters.countryCode!.length > 0 ? 'reset-enabled': 'reset-disabled'">
+        <div class="counterPartyCountryDropDown_buttons_text">
+          <p><span>Reset</span></p>
+        </div>
+      </div>
+
+      <!-- save button (Rectangle) -->
+      <div class="ax_default swift_secondary_button" data-label="save button"
+        [ngClass]="filters.countryCode!.length > 0 ? 'save-enabled': 'save-disabled'">
+        <div class="counterPartyCountryDropDown_buttons_text">
+          <p><span>Save filter</span></p>
+        </div>
+      </div>
+
+
+    </div>
   </div>
 
 </div>
+
+</div>
 <!-- Unnamed (Counterparties selected left nav) -->
+
+
+</div>
 
 
 

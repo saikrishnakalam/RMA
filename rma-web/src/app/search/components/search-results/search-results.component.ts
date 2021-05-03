@@ -23,7 +23,7 @@ export class SearchResultsComponent implements OnInit {
   @Output() clickedAdvancedSearch = new EventEmitter();
   @Output() detailsClicked = new EventEmitter();
   @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
-  
+
   @Input() counterPartyText: string | undefined;
   searchedText: string | undefined;
   @Output() changedCounterPartyText = new EventEmitter();
@@ -67,9 +67,9 @@ export class SearchResultsComponent implements OnInit {
     myBICs: []
   };
 
-  pageNo:number = 1;
-  noOfPages:number = 7;
-  sortKey:number = 1;
+  pageNo: number = 1;
+  noOfPages: number = 7;
+  sortKey: number = 1;
 
 
   @Output() selectedFilters = new EventEmitter();
@@ -177,19 +177,38 @@ export class SearchResultsComponent implements OnInit {
       this.searchService.counterPartyText = counterPartyText;
 
       this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyList(counterPartyText);
-      
+
     }
   }
-  resetAllFilters(){
+  resetAllFilters() {
     this.resetIssuerBicsFilter();
     this.resetCounterPartyCountriesFilter();
     this.resetIncomingAuthsFilter();
     this.resetOutgoingAuthsFilter();
   }
 
-  goToPageNumber(pageNumber: number){
+  goToPageNumber(pageNumber: number) {
     console.log(pageNumber);
     this.pageNo = pageNumber;
+    if (pageNumber > this.counterPartySearchResults.length) {
+      this.getSearchResults();
+    }
+  }
+
+  getSearchResults() {
+    console.log("Search clicked", this.filters);
+
+    if (this.counterPartyText) {
+      const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
+      this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+      this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length-1].endRecord;
+      this.filters.PageCount = 1;
+      this.searchApiService.getRelations(this.filters).subscribe(data => {
+        this.counterPartySearchResults.push(...data);
+        this.counterPartySearchResults.shift();
+        console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
+      });
+    }
   }
 
 }

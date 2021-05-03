@@ -23,7 +23,7 @@ export class SearchContainer implements OnInit {
     inTraffic: [],
     outTraffic: [],
     pageSize: 50,
-    PageCount: 1,
+    PageCount: 7,
     beginRecord: 1,
     sortKey: 1,
   };
