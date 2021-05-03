@@ -90,7 +90,7 @@
     <div id="u529" class="ax_default swift_table_cell">
       <img id="u529_img" class="img" src="assets/images/search_results/u528.png">
       <span id="u578" class="ax_default image1">
-        <img id="u578_img" class="img " src="assets/images/search_results/u578.png">
+        <img id="u578_img" class="img " [src]="getImageSrcByCode(counterparty.outTraffic)" >
       </span>
       <div id="u529_text" class="text ">
         <p id="cache20" style=""><span id="cache21" style="">{{counterparty.outTraffic}}</span></p>
@@ -98,7 +98,7 @@
     </div>
 
     <div id="u536" class="ax_default swift_line">
-      <img id="u536_img" class="img " [src]="getImageSrcByCode(counterparty.outTraffic)" />
+      <img id="u536_img" class="img " src="assets/images/many_search_results/u701.png" />
     </div>
   </div>
 </div>

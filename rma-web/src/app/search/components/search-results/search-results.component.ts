@@ -187,25 +187,47 @@ export class SearchResultsComponent implements OnInit {
     this.resetOutgoingAuthsFilter();
   }
 
-  goToPageNumber(pageNumber: number) {
-    console.log(pageNumber);
-    this.pageNo = pageNumber;
-    if (pageNumber > this.counterPartySearchResults.length) {
-      this.getSearchResults();
+  goToPageNumber(page: any) {
+    console.log(page);
+
+    if (page.clickedOn === 'pageNo') {
+      this.pageNo = page.pageNumber; 
+    } else if(page.clickedOn === 'next'){
+      if(page.pageNumber > this.counterPartySearchResults.length){
+        this.getSearchResults(page.clickedOn);
+      }else {
+        this.pageNo = page.pageNumber;
+      }
+    }else if(page.clickedOn === 'prev'){
+      if(page.pageNumber < this.counterPartySearchResults[0].pageNumber){
+        this.getSearchResults(page.clickedOn, page.paginationItems[page.pageNumber-1].beginRecord);
+      }else {
+        this.pageNo = page.pageNumber;
+      }
     }
   }
 
-  getSearchResults() {
+  getSearchResults(clickedOn = '', beginRecord = 1) {
     console.log("Search clicked", this.filters);
 
     if (this.counterPartyText) {
       const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
       this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
-      this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length-1].endRecord;
       this.filters.PageCount = 1;
+
+      if (clickedOn === 'next') {
+        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord;
+      } else if (clickedOn === 'prev') {
+        this.filters.beginRecord = beginRecord;
+      }
       this.searchApiService.getRelations(this.filters).subscribe(data => {
-        this.counterPartySearchResults.push(...data);
-        this.counterPartySearchResults.shift();
+        if (clickedOn === 'next') {
+          this.counterPartySearchResults.push(...data);
+          this.counterPartySearchResults.shift();
+        } else if (clickedOn === 'prev') {
+          this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
+          this.counterPartySearchResults.pop();
+        }
         console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
       });
     }

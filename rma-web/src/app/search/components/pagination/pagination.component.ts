@@ -8,7 +8,7 @@ import { RmaAuthorisationWithPagination } from "src/app/core";
 })
 export class PaginationComponent implements OnInit{
     @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
-    paginationItems: RmaAuthorisationWithPagination[] = [];
+    paginationItems: any = [];
     @Output() goToPageNumber = new EventEmitter();
     currentPage: number = 1;
     totalPages: number = 7;
@@ -16,26 +16,34 @@ export class PaginationComponent implements OnInit{
     constructor() { }
 
     ngOnInit(){
-        this.paginationItems = this.counterPartySearchResults;
+        let self=this;
+        this.paginationItems = this.counterPartySearchResults.map(obj => ({
+            beginRecord: obj.beginRecord,
+            endRecord: obj.endRecord,
+            pageNumber: obj.pageNumber,
+            recordCountInPage: obj.recordCountInPage
+        }));
     }
 
     clickedOnPageNumber(pageNumber: number){
         this.currentPage = pageNumber;
         this.goToPageNumber.emit(pageNumber);
+        this.goToPageNumber.emit({clickedOn: 'pageNo',pageNumber:this.currentPage, paginationItems: this.paginationItems});
     }
 
     goToNextPage(){
         //if(this.currentPage < this.counterPartySearchResults.length){
             this.currentPage = this.currentPage+1;
-            this.goToPageNumber.emit(this.currentPage);
+            this.goToPageNumber.emit({clickedOn: 'next',pageNumber:this.currentPage, paginationItems: this.paginationItems});
         //}
-        console.log(this.currentPage);
+        console.log(this.paginationItems);
         
     }
     goToPreviousPage(){
         if(this.currentPage > 0){
             this.currentPage = this.currentPage-1;
-            this.goToPageNumber.emit(this.currentPage);
+            console.log(this.paginationItems);
+            this.goToPageNumber.emit({clickedOn: 'prev',pageNumber: this.currentPage, paginationItems: this.paginationItems});
         }
     }
 }
