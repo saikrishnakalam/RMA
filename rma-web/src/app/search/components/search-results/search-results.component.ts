@@ -82,11 +82,11 @@ export class SearchResultsComponent implements OnInit {
   @HostListener("document:click", ["$event"])
   onClick(mouseEvent: any) {
     const paths = mouseEvent.path;
-    console.log(paths);
+    //console.log(paths);
     if (!paths.some((p: any) => p === this.eleRef.nativeElement)) {
       this.closeAllDropDowns();
     }else if(this.eleRef.nativeElement.contains(mouseEvent.target)){
-      console.log("Show bic", mouseEvent.target.innerHTML);
+      //console.log("Show bic", mouseEvent.target.innerHTML);
       if(mouseEvent.target.innerHTML === 'My BIC'){
         this.showCountryCounterPartyDropDown = false;
         this.showIncomingTrafficDropDown = false;
@@ -211,7 +211,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   goToPageNumber(page: any) {
-    console.log(page);
+   // console.log(page);
 
     if (page.clickedOn === 'pageNo') {
       this.pageNo = page.pageNumber; 
@@ -230,8 +230,15 @@ export class SearchResultsComponent implements OnInit {
     }
   }
 
+  onSortSelected(event: any) {
+    const value = event.target.value;
+    this.sortKey = value;
+    console.log(value);
+    this.getSearchResults();
+ }
+
   getSearchResults(clickedOn = '', beginRecord = 1) {
-    console.log("Search clicked", this.filters);
+    console.log("Search clicked",this.sortKey, this.filters);
 
     if (this.counterPartyText) {
       const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
@@ -251,7 +258,7 @@ export class SearchResultsComponent implements OnInit {
           this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
           this.counterPartySearchResults.pop();
         }
-        console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
+        //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
       });
     }
   }
