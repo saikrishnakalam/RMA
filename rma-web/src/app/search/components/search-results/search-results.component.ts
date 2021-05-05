@@ -85,28 +85,28 @@ export class SearchResultsComponent implements OnInit {
     //console.log(paths);
     if (!paths.some((p: any) => p === this.eleRef.nativeElement)) {
       this.closeAllDropDowns();
-    }else if(this.eleRef.nativeElement.contains(mouseEvent.target)){
+    } else if (this.eleRef.nativeElement.contains(mouseEvent.target)) {
       //console.log("Show bic", mouseEvent.target.innerHTML);
-      if(mouseEvent.target.innerHTML === 'My BIC'){
+      if (mouseEvent.target.innerHTML === 'My BIC') {
         this.showCountryCounterPartyDropDown = false;
         this.showIncomingTrafficDropDown = false;
         this.showOutgoingTrafficDropDown = false;
-      }else if(mouseEvent.target.innerHTML === 'Country counterparty'){
+      } else if (mouseEvent.target.innerHTML === 'Country counterparty') {
         this.showBicDropDown = false;
         this.showIncomingTrafficDropDown = false;
         this.showOutgoingTrafficDropDown = false;
-      } else if(mouseEvent.target.innerHTML === 'Incoming traffic'){
+      } else if (mouseEvent.target.innerHTML === 'Incoming traffic') {
         this.showCountryCounterPartyDropDown = false;
         this.showBicDropDown = false;
         this.showOutgoingTrafficDropDown = false;
-      } else if(mouseEvent.target.innerHTML === 'Outgoing traffic'){
+      } else if (mouseEvent.target.innerHTML === 'Outgoing traffic') {
         this.showCountryCounterPartyDropDown = false;
         this.showIncomingTrafficDropDown = false;
         this.showBicDropDown = false;
       }
     }
   }
-  closeAllDropDowns(){
+  closeAllDropDowns() {
     this.showBicDropDown = false;
     this.showCountryCounterPartyDropDown = false;
     this.showIncomingTrafficDropDown = false;
@@ -211,20 +211,20 @@ export class SearchResultsComponent implements OnInit {
   }
 
   goToPageNumber(page: any) {
-   // console.log(page);
+    // console.log(page);
 
     if (page.clickedOn === 'pageNo') {
-      this.pageNo = page.pageNumber; 
-    } else if(page.clickedOn === 'next'){
-      if(page.pageNumber > this.counterPartySearchResults.length){
+      this.pageNo = page.pageNumber;
+    } else if (page.clickedOn === 'next') {
+      if (page.pageNumber > this.counterPartySearchResults.length) {
         this.getSearchResults(page.clickedOn);
-      }else {
+      } else {
         this.pageNo = page.pageNumber;
       }
-    }else if(page.clickedOn === 'prev'){
-      if(page.pageNumber < this.counterPartySearchResults[0].pageNumber){
-        this.getSearchResults(page.clickedOn, page.paginationItems[page.pageNumber-1].beginRecord);
-      }else {
+    } else if (page.clickedOn === 'prev') {
+      if (page.pageNumber < this.counterPartySearchResults[0].pageNumber) {
+        this.getSearchResults(page.clickedOn, page.paginationItems[page.pageNumber - 1].beginRecord);
+      } else {
         this.pageNo = page.pageNumber;
       }
     }
@@ -233,12 +233,17 @@ export class SearchResultsComponent implements OnInit {
   onSortSelected(event: any) {
     const value = event.target.value;
     this.sortKey = value;
+    this.filters.sortKey = this.sortKey;
     console.log(value);
     this.getSearchResults();
- }
+  }
+  onChangePageSize(pageSize: number) {
+    this.filters.pageSize = pageSize * 1;
+    this.getSearchResults();
+  }
 
   getSearchResults(clickedOn = '', beginRecord = 1) {
-    console.log("Search clicked",this.sortKey, this.filters);
+    console.log("Search clicked", this.sortKey, this.filters);
 
     if (this.counterPartyText) {
       const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);

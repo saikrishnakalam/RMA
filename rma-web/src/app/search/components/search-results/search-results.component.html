@@ -1,3 +1,9 @@
+<!-- <div class="filters-wrapper">
+  <div class="ax_default swift_label">
+      <p><span>FILTER:</span></p>
+  </div>
+</div> -->
+
 <!-- Unnamed (Rectangle) -->
 <div id="u469" class="ax_default swift_label">
   <div id="u469_div" class=""></div>
@@ -83,10 +89,8 @@
 </div>
 <div id="u583" class="ax_default swift_droplist">
   <select id="u583_input" name="sortKey" [(ngModel)]="sortKey" (change)='onSortSelected($event)'>
-    <option value="1">&nbsp;Best match</option>
-    <option value="2">&nbsp;A to Z&nbsp; </option>
-    <option value="3">&nbsp;Z to A</option>
-    <option value="4">&nbsp;Expiring soon</option>
+    <option value="1">&nbsp;A to Z&nbsp; </option>
+    <option value="2">&nbsp;Z to A</option>
   </select>
 </div>
 
@@ -427,7 +431,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
   [counterPartySearchResults]="counterPartySearchResults[pageNo-1].recordList" (detailsClicked)="showDetails($event)">
 </app-counterparty-list-component>
 <app-search-pagination-component *ngIf="counterPartySearchResults.length > 1"
-  [counterPartySearchResults]="counterPartySearchResults" (goToPageNumber)="goToPageNumber($event)">
+  [counterPartySearchResults]="counterPartySearchResults" (goToPageNumber)="goToPageNumber($event)" (changePageSize)="onChangePageSize($event)">
 
 </app-search-pagination-component>
 <app-no-results-component *ngIf="!counterPartySearchResults || counterPartySearchResults.length === 0">

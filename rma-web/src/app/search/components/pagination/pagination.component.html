@@ -5,7 +5,8 @@
         (click)="goToPreviousPage()">
         <div class="text div-text">
             <p>
-                <img class="img" [src]="currentPage>1 ? 'assets/images/many_search_results/chrevron_left_u920_selected.png': 'assets/images/many_search_results/chrevron_left_u920_disabled.png'" />
+                <img class="img"
+                    [src]="currentPage>1 ? 'assets/images/many_search_results/chrevron_left_u920_selected.png': 'assets/images/many_search_results/chrevron_left_u920_disabled.png'" />
                 <span>Previous page</span>
 
             </p>
@@ -24,17 +25,36 @@
 
     <!-- Unnamed (Group) -->
     <div class="ax_default button-wrapper next"
-        [ngClass]="currentPage < counterPartySearchResults.length ? 'active':'disabled'" (click)="goToNextPage()"
+        [ngClass]="paginationItems[currentPage-1]?.moreData ? 'active':'disabled'" (click)="goToNextPage()"
         data-left="489" data-top="2" data-width="112" data-height="38">
         <div class="text div-text">
             <p><span>Next page</span>
-                <img class="img" [src]="currentPage < counterPartySearchResults.length ? 'assets/images/many_search_results/chevron_next_uxer_role_u918.png':'assets/images/many_search_results/chevron_next_uxer_role_u918.png'" />
+                <img class="img"
+                    [src]="currentPage < counterPartySearchResults.length ? 'assets/images/many_search_results/chevron_next_uxer_role_u918.png':'assets/images/many_search_results/chevron_next_uxer_role_u918.png'" />
             </p>
         </div>
         <!-- chevron next uxer role (Shape) -->
-
-
     </div>
 
+    <!-- Unnamed (Results per page) -->
+    <!-- Unnamed (Rectangle) -->
+    <div id="u925" class="ax_default swift_label">
+        <div id="u925_div" class=""></div>
+        <div id="u925_text" class="text ">
+            <p><span>Results per page</span></p>
+        </div>
+    </div>
+    <!-- Unnamed (Droplist) -->
+    <div id="u922" class="ax_default swift_droplist">
+        <select id="u922_input" name="pageSize" [(ngModel)]="pageSize" (change)='onPageSizeChange($event)'>
+            <option value="10">&nbsp; 10</option>
+            <option value="20">&nbsp; 20</option>
+            <option value="30">&nbsp; 30</option>
+            <option value="40">&nbsp; 40</option>
+            <option selected value="50">&nbsp; 50</option>
+            <option value="75">&nbsp; 75</option>
+            <option value="100">&nbsp; 100</option>
+        </select>
+    </div>
 
 </div>
