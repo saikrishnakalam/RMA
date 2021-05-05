@@ -16,23 +16,24 @@ export class SearchApiService {
   getCountries(): Observable<Country[]> {
     return this.apiService.get('getCountries').pipe(map((data: Country[]) => data));
   }
-
+  getAuthorisationList(){
+    return this.apiService.get('assets/data/authorisation.json')
+      .pipe(map((data: any) => data));
+  }
   getRelations(selectedFilters: RmaFilter): Observable<RmaAuthorisationWithPagination[]> {
-    //let params = new HttpParams();
     let body: any = {
-      beginRecord: 1,
-      pageSize: 50,
-      pageCount: 7,
-      sortKey: 1
+      beginRecord: selectedFilters.beginRecord,
+      pageSize: selectedFilters.pageSize,
+      pageCount: selectedFilters.pageCount,
+      sortKey: selectedFilters.sortKey,
+      pageNumber: selectedFilters.pageNumber
     };
     if (selectedFilters.myBICs && selectedFilters.myBICs.length > 0) {
-     // params = params.append('myBics', selectedFilters.myBICs.toString());
-      body = { ...body, myBics: selectedFilters.myBICs.toString() };
+      body = { ...body, myBics: selectedFilters.myBICs };
     } else {
       const rawIssuerBicList = localStorage.getItem('issuerBicList');
       const issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
       let result = issuerBicList.map((myBic: any) => myBic.bicCode);
-     // params = params.append('myBics', result.toString());
       body = { ...body, myBics: result };
     }
 
@@ -46,19 +47,12 @@ export class SearchApiService {
     }
 
     if (selectedFilters.inTraffic && selectedFilters.inTraffic.length > 0) {
-     // params = params.append('incomingTrafficOptions', selectedFilters.inTraffic.toString());
       body = { ...body, inTraffic: selectedFilters.inTraffic.toString() };
     }
 
     if (selectedFilters.outTraffic && selectedFilters.outTraffic.length > 0) {
-     // params = params.append('outgoingTrafficOptions', selectedFilters.outTraffic.toString());
       body = { ...body, outTraffic: selectedFilters.outTraffic.toString() };
     }
-
-    // params = params.append('startRecordNumber', '1');
-    // params = params.append('pageSize', '50');
-    // params = params.append('numberOfPages', '7');
-    // params = params.append('sortKey', 'BESTMATCH');
 
     console.log(body);
     return this.apiService.post('getAuthInfo', body)

@@ -22,58 +22,27 @@ export class SearchResultsComponent implements OnInit {
 
   @Output() clickedAdvancedSearch = new EventEmitter();
   @Output() detailsClicked = new EventEmitter();
-  @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
 
-  @Input() counterPartyText: string | undefined;
-  searchedText: string | undefined;
-  @Output() changedCounterPartyText = new EventEmitter();
+  counterPartyText: string = this.searchService.counterPartyText;
+  counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
+
   counterPartyAutocompleteResults: RmaBIC[] = [];
-  searchTextChanged = new Subject<string>();
   showAutocompleteData: boolean = false;
-  @Output() searchClicked = new EventEmitter();
+
   showBicDropDown: boolean = false;
   showIncomingTrafficDropDown: boolean = false;
   showOutgoingTrafficDropDown: boolean = false;
   showCountryCounterPartyDropDown: boolean = false;
   issuerBicList: IssuerBICDropDownData[] = [];
   countriesListForDropdown: CounterPartyCountryBICDropDownData[] = [];
-  incomingAuthorisationList = [{
-    status: 'Authorised',
-    code: 'A',
-    checked: false
-  }, {
-    status: 'Partly Authorised',
-    code: 'PA',
-    checked: false
-  }, {
-    status: 'Not Authorised',
-    code: 'NA',
-    checked: false
-  }];
-  outgoingAuthorisationList = [{
-    status: 'Authorised',
-    code: 'A',
-    checked: false
-  }, {
-    status: 'Partly Authorised',
-    code: 'PA',
-    checked: false
-  }, {
-    status: 'Not Authorised',
-    code: 'NA',
-    checked: false
-  }];
-  @Input() filters: RmaFilter = {
-    myBICs: []
-  };
 
+  paginationItems: any = [];
   pageNo: number = 1;
-  noOfPages: number = 7;
   sortKey: number = 1;
 
-
-  @Output() selectedFilters = new EventEmitter();
-
+  incomingAuthorisationList: any = [];
+  outgoingAuthorisationList: any = [];
+  filters: RmaFilter = this.searchService.filters;
 
   constructor(private searchService: SearchService,
     private searchApiService: SearchApiService,
@@ -106,6 +75,7 @@ export class SearchResultsComponent implements OnInit {
       }
     }
   }
+
   closeAllDropDowns() {
     this.showBicDropDown = false;
     this.showCountryCounterPartyDropDown = false;
@@ -114,13 +84,24 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getAuthorisationList();
     const rawIssuerBicList = localStorage.getItem('issuerBicList');
     this.issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
-    console.log(this.issuerBicList);
     this.searchService.setMyBics(this.issuerBicList);
+
     this.countriesListForDropdown = this.searchService.countriesList as CounterPartyCountryBICDropDownData[];
+    this.getSearchResults();
+    
     //this.searchedText = this.counterPartyText;
+  }
+
+  getAuthorisationList(){
+    console.log("dwqd");
+    this.searchApiService.getAuthorisationList().subscribe(authorisations => {
+      console.log(authorisations);
+      this.incomingAuthorisationList = JSON.parse(JSON.stringify(authorisations));
+      this.outgoingAuthorisationList = JSON.parse(JSON.stringify(authorisations));
+    });
   }
 
   toggleIssuerBic(issuerBic: IssuerBICDropDownData) {
@@ -130,7 +111,7 @@ export class SearchResultsComponent implements OnInit {
     } else {
       this.filters.myBICs = this.filters.myBICs?.filter(elem => elem !== issuerBic.bicCode);
     }
-    this.selectedFilters.emit(this.filters);
+    // this.selectedFilters.emit(this.filters);
   }
 
   toggleCounterPartyCountryDropDown(counterPartyCountry: CounterPartyCountryBICDropDownData) {
@@ -140,7 +121,7 @@ export class SearchResultsComponent implements OnInit {
     } else {
       this.filters.countryCode = this.filters.countryCode?.filter(elem => elem !== counterPartyCountry.countryCode);
     }
-    this.selectedFilters.emit(this.filters);
+    // this.selectedFilters.emit(this.filters);
   }
 
   toggleIncomingAuthDropDown(incomingAuth: any) {
@@ -150,7 +131,7 @@ export class SearchResultsComponent implements OnInit {
     } else {
       this.filters.inTraffic = this.filters.inTraffic?.filter(elem => elem !== incomingAuth.code);
     }
-    this.selectedFilters.emit(this.filters);
+    // this.selectedFilters.emit(this.filters);
   }
 
   toggleOutgoingAuthDropDown(outgoingAuth: any) {
@@ -160,7 +141,7 @@ export class SearchResultsComponent implements OnInit {
     } else {
       this.filters.outTraffic = this.filters.outTraffic?.filter(elem => elem !== outgoingAuth.code);
     }
-    this.selectedFilters.emit(this.filters);
+    // this.selectedFilters.emit(this.filters);
   }
   resetIssuerBicsFilter() {
     this.filters.myBICs = [];
@@ -172,11 +153,11 @@ export class SearchResultsComponent implements OnInit {
   }
   resetIncomingAuthsFilter() {
     this.filters.inTraffic = [];
-    this.incomingAuthorisationList.map(incomingAuthorisation => incomingAuthorisation.checked = false);
+    this.incomingAuthorisationList.map((incomingAuthorisation: any) => incomingAuthorisation.checked = false);
   }
   resetOutgoingAuthsFilter() {
     this.filters.outTraffic = [];
-    this.outgoingAuthorisationList.map(outgoingAuthorisation => outgoingAuthorisation.checked = false);
+    this.outgoingAuthorisationList.map((outgoingAuthorisation: any) => outgoingAuthorisation.checked = false);
   }
 
   showAdvancedSearch() {
@@ -212,18 +193,20 @@ export class SearchResultsComponent implements OnInit {
 
   goToPageNumber(page: any) {
     // console.log(page);
-
+    this.filters.pageNumber = page.pageNumber;
     if (page.clickedOn === 'pageNo') {
       this.pageNo = page.pageNumber;
     } else if (page.clickedOn === 'next') {
       if (page.pageNumber > this.counterPartySearchResults.length) {
+        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord;
         this.getSearchResults(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
     } else if (page.clickedOn === 'prev') {
       if (page.pageNumber < this.counterPartySearchResults[0].pageNumber) {
-        this.getSearchResults(page.clickedOn, page.paginationItems[page.pageNumber - 1].beginRecord);
+        this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
+        this.getSearchResults(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -242,30 +225,24 @@ export class SearchResultsComponent implements OnInit {
     this.getSearchResults();
   }
 
-  getSearchResults(clickedOn = '', beginRecord = 1) {
+  getSearchResults(clickedOn = '') {
     console.log("Search clicked", this.sortKey, this.filters);
 
-    if (this.counterPartyText) {
-      const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
-      this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
-      this.filters.PageCount = 1;
-
+    const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
+    this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+    this.searchApiService.getRelations(this.filters).subscribe(data => {
       if (clickedOn === 'next') {
-        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord;
+        this.counterPartySearchResults.push(...data);
+        this.counterPartySearchResults.shift();
       } else if (clickedOn === 'prev') {
-        this.filters.beginRecord = beginRecord;
+        this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
+        this.counterPartySearchResults.pop();
+      } else {
+        this.counterPartySearchResults = data;
       }
-      this.searchApiService.getRelations(this.filters).subscribe(data => {
-        if (clickedOn === 'next') {
-          this.counterPartySearchResults.push(...data);
-          this.counterPartySearchResults.shift();
-        } else if (clickedOn === 'prev') {
-          this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
-          this.counterPartySearchResults.pop();
-        }
-        //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
-      });
-    }
+      //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
+    });
+
   }
 
 }

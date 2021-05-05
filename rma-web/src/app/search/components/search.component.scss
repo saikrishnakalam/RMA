@@ -1,8 +1,5 @@
 
-.search-div {
-  left: 501px;
-  top: 400px;
-}
+
 #u27_div {
   border-width:0px;
   position:absolute;
@@ -117,8 +114,7 @@
   color:#027891;
   text-align:left;
 }
-#u30.mouseOver {
-}
+
 #u30_div.mouseDown {
   border-width:0px;
   position:absolute;
@@ -138,8 +134,7 @@
   color:#027891;
   text-align:left;
 }
-#u30.mouseDown {
-}
+
 #u30_div.disabled {
   border-width:0px;
   position:absolute;
@@ -159,8 +154,7 @@
   color:#027891;
   text-align:left;
 }
-#u30.disabled {
-}
+
 #u30_text {
   border-width:0px;
   position:absolute;
@@ -168,4 +162,10 @@
   top:0px;
   width:111px;
   white-space:nowrap;
+}
+
+.autocomplete-div {
+  left: 585px;
+  top: 283px;
+  position: absolute;
 }

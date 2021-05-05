@@ -1,16 +1,11 @@
 <app-search-results-component *ngIf="isSearchClicked && !isDetailsClicked"
-    (clickedAdvancedSearch)="showAdvancedSearch()" [counterPartySearchResults]="searchResults"
-    [counterPartyText]="counterPartyText" (changedCounterPartyText)="searchCounterParty($event)"
-    (searchClicked)="getSearchResults($event)"
+    (clickedAdvancedSearch)="showAdvancedSearch()"
     (detailsClicked)="showDetails($event)"
-    (selectedFilters)="setSelectedFilters($event)"
-    [filters]="filters"
     ></app-search-results-component>
 <app-search-component *ngIf="!isSearchClicked && !isDetailsClicked" (clickedAdvancedSearch)="showAdvancedSearch()"
-     (clickedSearch)="getSearchResults($event)"
-    (searchCounterPartyForText)="searchCounterParty($event)"></app-search-component>
+     (clickedSearch)="showSearchResults()"></app-search-component>
 <app-advanced-search-component *ngIf="isAdvancedSearchClicked && !isDetailsClicked"
     (closeAdvancedSearchClicked)="hideAdvancedSearch()"></app-advanced-search-component>
 <app-counterparty-details-component *ngIf="isDetailsClicked" (backToList)="hideDetails()"
-    [counterparty]="counterpartyClicked" [counterPartySearchResults]="searchResults">
+    [counterparty]="counterpartyClicked">
 </app-counterparty-details-component>

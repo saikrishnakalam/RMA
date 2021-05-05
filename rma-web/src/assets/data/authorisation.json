@@ -1,0 +1,15 @@
+[
+    {
+        "status": "Authorised",
+        "code": "A",
+        "checked": false
+      }, {
+        "status": "Partly Authorised",
+        "code": "PA",
+        "checked": false
+      }, {
+        "status": "Not Authorised",
+        "code": "NA",
+        "checked": false
+      }
+]

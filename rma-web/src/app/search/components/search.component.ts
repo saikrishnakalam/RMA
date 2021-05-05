@@ -12,8 +12,6 @@ export class SearchComponent implements OnInit {
 
   @Output() clickedAdvancedSearch = new EventEmitter();
   @Output() clickedSearch = new EventEmitter();
-  @Output() searchCounterPartyForText = new EventEmitter();
-  counterPartyAutocompleteResults: RmaBIC[] = [];
   searchClicked: boolean = false;
 
   constructor(private searchService: SearchService, private searchApiService: SearchApiService) { }
@@ -30,12 +28,6 @@ export class SearchComponent implements OnInit {
     this.searchService.counterPartyText = counterPartyText;
     this.searchClicked = true;
     this.clickedSearch.emit(counterPartyText);
-  }
-
-  searchCounterParty(counterPartyText: string) {
-    console.log(counterPartyText);
-    this.searchService.counterPartyText = counterPartyText;
-    this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyList(counterPartyText);
   }
 
 }

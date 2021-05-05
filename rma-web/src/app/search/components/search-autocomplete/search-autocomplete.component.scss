@@ -32,7 +32,7 @@
 }
 #u23_div {
   border-width:0px;
-  position:absolute;
+  position:relative;
   left:0px;
   top:0px;
   width:501px;
@@ -49,16 +49,10 @@
   box-shadow:none;
   font-size:16px;
   color:#5A4E48;
+  float: left;
 }
-#u23 {
-  border-width:0px;
-  position:absolute;
-  left:585px;
-  top:283px;
-  width:501px;
-  height:36px;
-  font-size:16px;
-  color:#5A4E48;
+.autocomplete-wrapper {
+  width:583px;
 }
 #u23_text {
   border-width:0px;
@@ -115,15 +109,14 @@
 }
 #u25 {
   border-width:0px;
-  position:absolute;
-  left:1085px;
-  top:283px;
+  position: relative;
   width:82px;
   height:36px;
   font-family:'Arial Bold', 'Arial';
   font-weight:700;
   font-style:normal;
   text-align:left;
+  float: left;
 }
 #u25_div.mouseOver {
   border-width:0px;
@@ -224,7 +217,7 @@
   display: block;
   width:497px;
   max-height: 300px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .ui-autocomplete > li > div {

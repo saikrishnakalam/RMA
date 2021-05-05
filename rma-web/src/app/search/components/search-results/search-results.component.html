@@ -53,7 +53,7 @@
 
   <!-- Unnamed (Rectangle) -->
   <div id="u565" class="ax_default swift_primary_button" style="cursor: pointer;"
-    (click)="searchClicked.emit(counterPartyText)">
+    (click)="getSearchResults()">
     <div id="u565_div" class=""></div>
     <div id="u565_text" class="text ">
       <p><span>Search</span></p>
@@ -77,10 +77,12 @@
 
   <!-- Unnamed (Shape) -->
   <div id="u567" class="ax_default shape2" style="cursor: pointer;"
-    (click)="counterPartyText=''; searchClicked.emit(counterPartyText)">
+    (click)="counterPartyText='';">
     <img id="u567_img" class="img " src="assets/images/no_results/u63.png" />
   </div>
 </div>
+
+
 <div id="u588" class="ax_default swift_label">
   <div id="u588_div" class=""></div>
   <div id="u588_text" class="text ">
@@ -89,8 +91,9 @@
 </div>
 <div id="u583" class="ax_default swift_droplist">
   <select id="u583_input" name="sortKey" [(ngModel)]="sortKey" (change)='onSortSelected($event)'>
-    <option value="1">&nbsp;A to Z&nbsp; </option>
-    <option value="2">&nbsp;Z to A</option>
+    <option value="1">&nbsp;Best match&nbsp; </option>
+    <option value="2">&nbsp;A to Z&nbsp; </option>
+    <option value="3">&nbsp;Z to A</option>
   </select>
 </div>
 
@@ -269,7 +272,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
         <div (click)="toggleIncomingAuthDropDown(incomingAuthorisation)" class="counterPartyCountryDropDown_text"
           *ngFor="let incomingAuthorisation of incomingAuthorisationList">
           <p>
-            <span>{{incomingAuthorisation.status}}</span>
+            <span>{{incomingAuthorisation?.status}}</span>
             <img class="img" src="assets/images/no_results/c3_u82.png" *ngIf="incomingAuthorisation.checked" />
           </p>
         </div>

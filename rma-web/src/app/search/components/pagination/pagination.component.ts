@@ -25,10 +25,13 @@ export class PaginationComponent implements OnInit, OnChanges{
             recordCountInPage: obj.recordCountInPage,
             moreRecords: obj.moreRecords
         }));
+        console.log(this.counterPartySearchResults);
         console.log(this.paginationItems);
     }
     ngOnChanges(changes: SimpleChanges){
-
+        console.log(changes.counterPartySearchResults);
+        console.log(changes.counterPartySearchResults.currentValue);
+        console.log(changes.counterPartySearchResults.previousValue);
     }
 
     clickedOnPageNumber(pageNumber: number){
@@ -40,7 +43,7 @@ export class PaginationComponent implements OnInit, OnChanges{
         //if(this.currentPage < this.counterPartySearchResults.length){
             this.currentPage = this.currentPage+1;
             this.goToPageNumber.emit({clickedOn: 'next',pageNumber:this.currentPage, paginationItems: this.paginationItems});
-            console.log(this.paginationItems.length);
+            console.log(this.paginationItems);
             console.log(this.currentPage);
         //}
         //console.log(this.paginationItems);
@@ -55,9 +58,5 @@ export class PaginationComponent implements OnInit, OnChanges{
     }
     onPageSizeChange(event: any){
         this.changePageSize.emit(event.target.value);
-    }
-
-    getPageNumber(eachPage: any){
-        return this.paginationItems.findIndex((elem: any) => (elem.beginRecord === eachPage.beginRecord && elem.endRecord === eachPage.endRecord));
     }
 }

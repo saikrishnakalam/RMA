@@ -2,7 +2,7 @@
 
     <!-- Unnamed (Rectangle) -->
     <div class="ax_default swift_label button-wrapper prev" [ngClass]="currentPage>1 ? 'active': 'disabled'"
-        (click)="goToPreviousPage()">
+        (click)="currentPage>1 ? goToPreviousPage(): ''">
         <div class="text div-text">
             <p>
                 <img class="img"
@@ -19,13 +19,13 @@
         data-label="Rectangle">
         <div class="page-no-div" [ngClass]="pages.pageNumber === currentPage ? 'current-page':''"></div>
         <div class="page-no-text text">
-            <p><span>{{getPageNumber(pages)}}</span></p>
+            <p><span>{{pages.pageNumber}}</span></p>
         </div>
     </div>
 
     <!-- Unnamed (Group) -->
     <div class="ax_default button-wrapper next"
-        [ngClass]="paginationItems[currentPage-1]?.moreRecords ? 'active':'disabled'" (click)="goToNextPage()"
+        [ngClass]="paginationItems[currentPage-1]?.moreRecords ? 'active':'disabled'" (click)="paginationItems[currentPage-1]?.moreRecords ? goToNextPage():''"
         data-left="489" data-top="2" data-width="112" data-height="38">
         <div class="text div-text">
             <p><span>Next page</span>

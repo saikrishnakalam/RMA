@@ -6,6 +6,7 @@ export interface RmaFilter {
     outTraffic?: string[];
     beginRecord?: number;
     pageSize?: number;
-    PageCount?: number;
+    pageCount?: number;
     sortKey?: number;
+    pageNumber?: number;
 }

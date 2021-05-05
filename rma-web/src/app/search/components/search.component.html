@@ -1,27 +1,23 @@
 <div [ngClass]="searchClicked ? '' :'search-container'">
-<div id="u28" class="ax_default shape2" *ngIf="!searchClicked">
-  <img id="u28_img" class="img " src="assets/images/search/u28.png" />
-</div>
-<div id="u27" class="ax_default swift_heading_1" *ngIf="!searchClicked">
-  <div id="u27_div" class=""></div>
-  <div id="u27_text" class="text ">
-    <p><span>Find authorisations</span></p>
+  <div id="u28" class="ax_default shape2" *ngIf="!searchClicked">
+    <img id="u28_img" class="img " src="assets/images/search/u28.png" />
   </div>
-</div>
-<div class="search-div">
-  <app-search-autocomplete-component (searchClicked)="getSearchResults($event)"></app-search-autocomplete-component>
-  <div id="u30" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="showAdvancedSearch()">
-    <div id="u30_div" class=""></div>
-    <div id="u30_text" class="text ">
-      <p><span style="text-decoration:underline;">Advanced search</span></p>
+  <div id="u27" class="ax_default swift_heading_1" *ngIf="!searchClicked">
+    <div id="u27_div" class=""></div>
+    <div id="u27_text" class="text ">
+      <p><span>Find authorisations</span></p>
     </div>
   </div>
-</div>
-<!-- Unnamed (Rectangle) -->
-<div id="u556" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="showAdvancedSearch()">
-  <div id="u556_div" class=""></div>
-  <div id="u556_text" class="text ">
-    <p><span style="text-decoration:underline;">Advanced search</span></p>
+  <div class="search-div">
+    <div class="autocomplete-div">
+      <app-search-autocomplete-component (searchClicked)="getSearchResults($event)"></app-search-autocomplete-component>
+    </div>
+    
+    <div id="u30" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="showAdvancedSearch()">
+      <div id="u30_div" class=""></div>
+      <div id="u30_text" class="text ">
+        <p><span style="text-decoration:underline;">Advanced search</span></p>
+      </div>
+    </div>
   </div>
-</div>
 </div>

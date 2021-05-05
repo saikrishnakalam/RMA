@@ -17,9 +17,10 @@ export class SearchService {
 		inTraffic: [],
 		outTraffic: [],
 		pageSize: 50,
-		PageCount: 1,
+		pageCount: 7,
 		beginRecord: 1,
 		sortKey: 1,
+		pageNumber: 1
 	  };
 	constructor() { }
 
