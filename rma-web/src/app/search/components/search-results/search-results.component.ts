@@ -198,15 +198,17 @@ export class SearchResultsComponent implements OnInit {
       this.pageNo = page.pageNumber;
     } else if (page.clickedOn === 'next') {
       if (page.pageNumber > this.counterPartySearchResults.length) {
+        this.filters.pageCount = 1;
         this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord+1;
-        this.getSearchResults(page.clickedOn);
+        this.getSearchResults1(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
     } else if (page.clickedOn === 'prev') {
       if (page.pageNumber < this.counterPartySearchResults[0].pageNumber) {
+        this.filters.pageCount = 1;
         this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
-        this.getSearchResults(page.clickedOn);
+        this.getSearchResults1(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
