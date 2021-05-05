@@ -19,7 +19,7 @@
         data-label="Rectangle">
         <div class="page-no-div" [ngClass]="pages.pageNumber === currentPage ? 'current-page':''"></div>
         <div class="page-no-text text">
-            <p><span>{{pages.pageNumber}}</span></p>
+            <p><span>{{getPageNumber(pages)}}</span></p>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div class="text div-text">
             <p><span>Next page</span>
                 <img class="img"
-                    [src]="currentPage < counterPartySearchResults.length ? 'assets/images/many_search_results/chevron_next_uxer_role_u918.png':'assets/images/many_search_results/chevron_next_uxer_role_u918.png'" />
+                    [src]="paginationItems[currentPage-1]?.moreRecords ? 'assets/images/many_search_results/chevron_next_uxer_role_u918.png':'assets/images/many_search_results/chevron_next_uxer_role_u918.png'" />
             </p>
         </div>
         <!-- chevron next uxer role (Shape) -->

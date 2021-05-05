@@ -56,4 +56,8 @@ export class PaginationComponent implements OnInit, OnChanges{
     onPageSizeChange(event: any){
         this.changePageSize.emit(event.target.value);
     }
+
+    getPageNumber(eachPage: any){
+        return this.paginationItems.findIndex((elem: any) => (elem.beginRecord === eachPage.beginRecord && elem.endRecord === eachPage.endRecord));
+    }
 }
