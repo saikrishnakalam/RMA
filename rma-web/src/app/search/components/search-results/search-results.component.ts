@@ -198,7 +198,7 @@ export class SearchResultsComponent implements OnInit {
       this.pageNo = page.pageNumber;
     } else if (page.clickedOn === 'next') {
       if (page.pageNumber > this.counterPartySearchResults.length) {
-        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord;
+        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord+1;
         this.getSearchResults(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;

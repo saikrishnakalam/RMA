@@ -17,7 +17,7 @@ export class SearchService {
 		inTraffic: [],
 		outTraffic: [],
 		pageSize: 50,
-		pageCount: 7,
+		pageCount: 10,
 		beginRecord: 1,
 		sortKey: 1,
 		pageNumber: 1
