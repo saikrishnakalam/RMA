@@ -23,7 +23,7 @@ export class PaginationComponent implements OnInit, OnChanges{
             endRecord: obj.endRecord,
             pageNumber: obj.pageNumber,
             recordCountInPage: obj.recordCountInPage,
-            moreData: obj.moreData
+            moreRecords: obj.moreRecords
         }));
         console.log(this.paginationItems);
     }

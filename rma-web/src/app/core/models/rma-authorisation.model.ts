@@ -19,7 +19,7 @@ export interface RmaAuthorisationWithPagination {
   beginRecord: number;
   endRecord: number;
   recordCountInPage: number;
-  moreData: boolean;
+  moreRecords: boolean;
   recordList: RmaAuthorisation[]
 }
 
