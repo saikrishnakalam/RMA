@@ -8,7 +8,7 @@ import { RmaAuthorisationWithPagination } from "src/app/core";
 })
 export class PaginationComponent implements OnInit, OnChanges{
     @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
-    paginationItems: any = [];
+    @Input() paginationItems: any = [];
     @Output() goToPageNumber = new EventEmitter();
     currentPage: number = 1;
     totalPages: number = 2;
@@ -18,20 +18,32 @@ export class PaginationComponent implements OnInit, OnChanges{
 
     ngOnInit(){
         let self=this;
-        this.paginationItems = this.counterPartySearchResults.map(obj => ({
-            beginRecord: obj.beginRecord,
-            endRecord: obj.endRecord,
-            pageNumber: obj.pageNumber,
-            recordCountInPage: obj.recordCountInPage,
-            moreRecords: obj.moreRecords
-        }));
+        this.getPaginationItems(this.counterPartySearchResults);
         console.log(this.counterPartySearchResults);
         console.log(this.paginationItems);
     }
     ngOnChanges(changes: SimpleChanges){
-        console.log(changes.counterPartySearchResults);
-        console.log(changes.counterPartySearchResults.currentValue);
-        console.log(changes.counterPartySearchResults.previousValue);
+        if(changes.paginationItems && changes.paginationItems.currentValue){
+
+        console.log(changes.paginationItems);
+        console.log(changes.paginationItems!.currentValue);
+        console.log(changes.paginationItems!.previousValue);
+            this.getPaginationItems(changes.paginationItems.currentValue);
+        }
+        if(changes.counterPartySearchResults && changes.counterPartySearchResults.currentValue){
+           // this.counterPartySearchResults = changes.counterPartySearchResults.currentValue;
+        }
+       
+    }
+    getPaginationItems(counterPartySearchResults: any){
+        // this.paginationItems = counterPartySearchResults.map((obj: any) => ({
+        //     beginRecord: obj.beginRecord,
+        //     endRecord: obj.endRecord,
+        //     pageNumber: obj.pageNumber,
+        //     recordCountInPage: obj.recordCountInPage,
+        //     moreRecords: obj.moreRecords
+        // }));
+        console.log(this.paginationItems);
     }
 
     clickedOnPageNumber(pageNumber: number){

@@ -432,7 +432,7 @@ data-left="0" data-top="0" data-width="0" data-height="0">
 <app-counterparty-list-component *ngIf="counterPartySearchResults.length > 0"
   [counterPartySearchResults]="counterPartySearchResults[pageNo-1].recordList" (detailsClicked)="showDetails($event)">
 </app-counterparty-list-component>
-<app-search-pagination-component *ngIf="counterPartySearchResults.length > 1"
+<app-search-pagination-component *ngIf="counterPartySearchResults.length > 1" [paginationItems]="paginationItems"
   [counterPartySearchResults]="counterPartySearchResults" (goToPageNumber)="goToPageNumber($event)" (changePageSize)="onChangePageSize($event)">
 
 </app-search-pagination-component>

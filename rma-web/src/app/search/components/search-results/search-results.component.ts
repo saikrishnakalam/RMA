@@ -200,7 +200,7 @@ export class SearchResultsComponent implements OnInit {
       if (page.pageNumber > this.counterPartySearchResults.length) {
         this.filters.pageCount = 1;
         this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord+1;
-        this.getSearchResults1(page.clickedOn);
+        this.getSearchResults(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -208,7 +208,7 @@ export class SearchResultsComponent implements OnInit {
       if (page.pageNumber < this.counterPartySearchResults[0].pageNumber) {
         this.filters.pageCount = 1;
         this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
-        this.getSearchResults1(page.clickedOn);
+        this.getSearchResults(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -236,11 +236,13 @@ export class SearchResultsComponent implements OnInit {
       if (clickedOn === 'next') {
         this.counterPartySearchResults.push(...data);
         this.counterPartySearchResults.shift();
+        this.paginationItems.push(...data);
       } else if (clickedOn === 'prev') {
         this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
         this.counterPartySearchResults.pop();
       } else {
-        this.counterPartySearchResults = data;
+        this.counterPartySearchResults = [...data];
+        this.paginationItems = [...data];
       }
       //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
     });
