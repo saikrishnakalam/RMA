@@ -207,7 +207,7 @@ export class SearchResultsComponent implements OnInit {
         this.pageNo = page.pageNumber;
       }
     } else if (page.clickedOn === 'prev') {
-      if (page.pageNumber < this.paginationItems[0].pageNumber) {
+      if (page.pageNumber < this.counterPartySearchResults[0].pageNumber) {
         this.filters.pageCount = 1;
         this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
         this.getSearchResultsForPagination(page);
@@ -221,11 +221,13 @@ export class SearchResultsComponent implements OnInit {
     const value = event.target.value;
     this.sortKey = value * 1;
     this.filters.sortKey = this.sortKey;
+    this.filters.pageCount = 7;
     console.log(value);
     this.getSearchResults();
   }
   onChangePageSize(pageSize: number) {
     this.filters.pageSize = pageSize * 1;
+    this.filters.pageCount = 7;
     this.getSearchResults();
   }
 
