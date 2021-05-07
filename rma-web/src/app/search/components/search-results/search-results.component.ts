@@ -222,12 +222,15 @@ export class SearchResultsComponent implements OnInit {
     this.sortKey = value * 1;
     this.filters.sortKey = this.sortKey;
     this.filters.pageCount = 7;
+    this.filters.beginRecord = 1;
+
     console.log(value);
     this.getSearchResults();
   }
   onChangePageSize(pageSize: number) {
     this.filters.pageSize = pageSize * 1;
     this.filters.pageCount = 7;
+    this.filters.beginRecord = 1;
     this.getSearchResults();
   }
 
