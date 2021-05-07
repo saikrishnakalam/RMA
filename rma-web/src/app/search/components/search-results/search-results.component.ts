@@ -199,19 +199,18 @@ export class SearchResultsComponent implements OnInit {
       this.pageNo = page.pageNumber;
     } else if (page.clickedOn === 'next') {
       if (page.pageNumber > this.paginationItems.length) {
-        this.pageNo = page.pageNumber;
+        
         this.filters.pageCount = 1;
         this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord + 1;
-        this.getSearchResultsForPagination(page.clickedOn);
+        this.getSearchResultsForPagination(page);
       } else {
         this.pageNo = page.pageNumber;
       }
     } else if (page.clickedOn === 'prev') {
       if (page.pageNumber < this.paginationItems[0].pageNumber) {
-        this.pageNo = page.pageNumber;
         this.filters.pageCount = 1;
         this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
-        this.getSearchResultsForPagination(page.clickedOn);
+        this.getSearchResultsForPagination(page);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -254,17 +253,26 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
-  getSearchResultsForPagination(clickedOn = '') {
+  getSearchResultsForPagination(page: any) {
     console.log("Search clicked", this.sortKey, this.filters);
     this.searchApiService.getRelations(this.filters).subscribe(data => {
-      if (clickedOn === 'next') {
-        this.counterPartySearchResults.push(...data);
-        this.counterPartySearchResults.shift();
-        this.paginationItems.push(...data);
-      } else if (clickedOn === 'prev') {
-        this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
-        this.counterPartySearchResults.pop();
-      } 
+      if(data.length>0){
+        if (page.clickedOn === 'next') {
+          this.counterPartySearchResults.push(...data);
+          this.counterPartySearchResults.shift();
+          this.paginationItems.push(...data);
+          
+        } else if (page.clickedOn === 'prev') {
+          this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
+          this.counterPartySearchResults.pop();
+        } 
+        this.pageNo = page.pageNumber;
+      }else {
+        if (page.clickedOn === 'next') {
+          this.pageNo = page.pageNumber-1
+        }
+      }
+      
       //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
     });
 

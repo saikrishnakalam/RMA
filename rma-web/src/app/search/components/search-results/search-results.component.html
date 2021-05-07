@@ -337,7 +337,7 @@
   </app-counterparty-list-component>
   <app-search-pagination-component *ngIf="counterPartySearchResults.length > 0" [paginationItems]="paginationItems"
     [counterPartySearchResults]="counterPartySearchResults" (goToPageNumber)="goToPageNumber($event)"
-    (changePageSize)="onChangePageSize($event)">
+    (changePageSize)="onChangePageSize($event)" [currentPage]="pageNo">
 
   </app-search-pagination-component>
   <app-no-results-component *ngIf="!counterPartySearchResults || counterPartySearchResults.length === 0">

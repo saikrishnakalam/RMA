@@ -10,7 +10,7 @@ export class PaginationComponent implements OnInit, OnChanges{
     @Input() counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
     @Input() paginationItems: any = [];
     @Output() goToPageNumber = new EventEmitter();
-    currentPage: number = 1;
+    @Input() currentPage: number = 1;
     totalPages: number = 2;
     @Input() pageSize:number = 50;
     @Output() changePageSize = new EventEmitter();
