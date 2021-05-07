@@ -10,24 +10,49 @@ import { SearchService } from '../../services/search.service';
 export class SearchAutocompleteComponent implements OnInit {
 
   @Output() searchClicked = new EventEmitter();
-  counterPartyAutocompleteResults: RmaBIC[] = [];
+  @Input() fromPage: string = "search";
+  counterPartyAutocompleteResultsByCode: RmaBIC[] = [];
+  counterPartyAutocompleteResultsByName: RmaBIC[] = [];
   counterPartyText: string | undefined;
+  searchType: "code" | "name" = "code";
 
   constructor(private searchService: SearchService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    console.log(this.searchService.counterPartyText);
+    this.counterPartyText = this.searchService.counterPartyText;
+  }
 
   //passing the keyup event
   onSearchCounterparty(e: any) {
     if(e.target.value.length >= 3){
-      this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyList(e.target.value);
+      console.time("By Code");
+      this.counterPartyAutocompleteResultsByCode = this.searchService.filterCounterPartyListByCode(e.target.value);
+      console.timeEnd("By Code");
+      console.time("By Name");
+      this.counterPartyAutocompleteResultsByName = this.searchService.filterCounterPartyListByName(e.target.value);
+      console.timeEnd("By Name");
+    }else {
+      this.counterPartyAutocompleteResultsByCode = [];
+    this.counterPartyAutocompleteResultsByName = [];
     }
     
   }
 
-  getCounterPartyResults(counterPartyText: string) {
+  getCounterPartyResults(counterPartyText: string, searchType: "code" | "name") {
     this.counterPartyText = counterPartyText;
-    this.counterPartyAutocompleteResults = [];
+    this.searchType = searchType;
+    this.counterPartyAutocompleteResultsByCode = [];
+    this.counterPartyAutocompleteResultsByName = [];
+  }
+
+  clickedOnSearch(){
+    this.searchClicked.emit({counterPartyText:this.counterPartyText, type: this.searchType});
+  }
+
+  clearCounterPartyText(){
+    this.counterPartyText = '';
+    this.searchService.counterPartyText = '';
   }
 
 }

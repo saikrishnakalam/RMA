@@ -23,7 +23,7 @@ export class SearchResultsComponent implements OnInit {
   @Output() clickedAdvancedSearch = new EventEmitter();
   @Output() detailsClicked = new EventEmitter();
 
-  counterPartyText: string = this.searchService.counterPartyText;
+  counterPartyText: string = '';
   counterPartySearchResults: RmaAuthorisationWithPagination[] = [];
 
   counterPartyAutocompleteResults: RmaBIC[] = [];
@@ -42,7 +42,7 @@ export class SearchResultsComponent implements OnInit {
 
   incomingAuthorisationList: any = [];
   outgoingAuthorisationList: any = [];
-  filters: RmaFilter = this.searchService.filters;
+  filters: RmaFilter = {};
 
   constructor(private searchService: SearchService,
     private searchApiService: SearchApiService,
@@ -88,17 +88,18 @@ export class SearchResultsComponent implements OnInit {
     const rawIssuerBicList = localStorage.getItem('issuerBicList');
     this.issuerBicList = rawIssuerBicList ? JSON.parse(rawIssuerBicList) : [];
     this.searchService.setMyBics(this.issuerBicList);
-
+    console.log(this.searchService.counterPartyText);
+    this.counterPartyText = this.searchService.counterPartyText;
     this.countriesListForDropdown = this.searchService.countriesList as CounterPartyCountryBICDropDownData[];
+    this.filters = {...this.searchService.filters};
+    this.filters.corrBICs = this.searchService.filters.corrBICs;
     this.getSearchResults();
-    
+
     //this.searchedText = this.counterPartyText;
   }
 
-  getAuthorisationList(){
-    console.log("dwqd");
+  getAuthorisationList() {
     this.searchApiService.getAuthorisationList().subscribe(authorisations => {
-      console.log(authorisations);
       this.incomingAuthorisationList = JSON.parse(JSON.stringify(authorisations));
       this.outgoingAuthorisationList = JSON.parse(JSON.stringify(authorisations));
     });
@@ -180,7 +181,7 @@ export class SearchResultsComponent implements OnInit {
       this.showAutocompleteData = true;
       this.searchService.counterPartyText = counterPartyText;
 
-      this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyList(counterPartyText);
+      this.counterPartyAutocompleteResults = this.searchService.filterCounterPartyListByName(counterPartyText);
 
     }
   }
@@ -200,8 +201,8 @@ export class SearchResultsComponent implements OnInit {
       if (page.pageNumber > this.paginationItems.length) {
         this.pageNo = page.pageNumber;
         this.filters.pageCount = 1;
-        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord+1;
-        this.getSearchResults(page.clickedOn);
+        this.filters.beginRecord = this.counterPartySearchResults[this.counterPartySearchResults.length - 1].endRecord + 1;
+        this.getSearchResultsForPagination(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -210,7 +211,7 @@ export class SearchResultsComponent implements OnInit {
         this.pageNo = page.pageNumber;
         this.filters.pageCount = 1;
         this.filters.beginRecord = page.paginationItems[page.pageNumber - 1].beginRecord;
-        this.getSearchResults(page.clickedOn);
+        this.getSearchResultsForPagination(page.clickedOn);
       } else {
         this.pageNo = page.pageNumber;
       }
@@ -219,7 +220,7 @@ export class SearchResultsComponent implements OnInit {
 
   onSortSelected(event: any) {
     const value = event.target.value;
-    this.sortKey = value;
+    this.sortKey = value * 1;
     this.filters.sortKey = this.sortKey;
     console.log(value);
     this.getSearchResults();
@@ -229,11 +230,32 @@ export class SearchResultsComponent implements OnInit {
     this.getSearchResults();
   }
 
-  getSearchResults(clickedOn = '') {
-    console.log("Search clicked", this.sortKey, this.filters);
+  getSearchResults(searchObj: any = null) {
+    if (searchObj != null) {
+      this.searchService.counterPartyText = searchObj.counterPartyText;
+      if (searchObj.type === "code") {
+        if(searchObj.counterPartyText != ""){
+          this.searchService.filters.corrBICs = [searchObj.counterPartyText];
+          this.filters.corrBICs= [searchObj.counterPartyText];
+        }else {
+          this.searchService.filters.corrBICs = [];
+          this.filters.corrBICs= [];
+        }
+        
+      } else {
+        const counterPartyList = this.searchService.filterCounterPartyListByName(searchObj.counterPartyText);
+        this.searchService.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+        this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+      }
+    }
+    this.searchApiService.getRelations(this.filters).subscribe(data => {
+      this.counterPartySearchResults = [...data];
+      this.paginationItems = [...data];
+    });
+  }
 
-    const counterPartyList = this.searchService.filterCounterPartyList(this.counterPartyText);
-    this.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+  getSearchResultsForPagination(clickedOn = '') {
+    console.log("Search clicked", this.sortKey, this.filters);
     this.searchApiService.getRelations(this.filters).subscribe(data => {
       if (clickedOn === 'next') {
         this.counterPartySearchResults.push(...data);
@@ -242,13 +264,17 @@ export class SearchResultsComponent implements OnInit {
       } else if (clickedOn === 'prev') {
         this.counterPartySearchResults = [...data].concat(this.counterPartySearchResults);
         this.counterPartySearchResults.pop();
-      } else {
-        this.counterPartySearchResults = [...data];
-        this.paginationItems = [...data];
-      }
+      } 
       //console.log(this.counterPartySearchResults.length, this.counterPartySearchResults)
     });
 
+  }
+
+  showResetAllButton() {
+    if (this.filters.myBICs!.length > 0 || this.filters.countryCode!.length > 0 || this.filters.inTraffic!.length > 0 || this.filters.outTraffic!.length > 0) {
+      return true;
+    }
+    return false;
   }
 
 }

@@ -25,7 +25,7 @@
 
     <!-- Unnamed (Group) -->
     <div class="ax_default button-wrapper next"
-        [ngClass]="paginationItems[currentPage-1]?.moreRecords ? 'active':'disabled'" (click)="paginationItems[currentPage-1]?.moreRecords ? goToNextPage():''"
+        [ngClass]="currentPage <= paginationItems[paginationItems.length-1].pageNumber ||  paginationItems[currentPage-1]?.moreRecords ? 'active':'disabled'" (click)="currentPage <= paginationItems[paginationItems.length-1].pageNumber ||  paginationItems[currentPage-1]?.moreRecords ? goToNextPage():''"
         data-left="489" data-top="2" data-width="112" data-height="38">
         <div class="text div-text">
             <p><span>Next page</span>

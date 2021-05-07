@@ -10,7 +10,7 @@
   </div>
   <div class="search-div">
     <div class="autocomplete-div">
-      <app-search-autocomplete-component (searchClicked)="getSearchResults($event)"></app-search-autocomplete-component>
+      <app-search-autocomplete-component [fromPage]="'search'" (searchClicked)="getSearchResults($event)"></app-search-autocomplete-component>
     </div>
     
     <div id="u30" class="ax_default swift_secondary_button" style="cursor: pointer;" (click)="showAdvancedSearch()">

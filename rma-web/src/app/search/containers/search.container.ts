@@ -40,7 +40,6 @@ export class SearchContainer implements OnInit {
 
   getCounterPartyBics() {
     this.searchApiService.getCounterPartyBics().subscribe(data => {
-      console.log(data);
       this.searchService.setCounterPartyBics(data);
     });
   }

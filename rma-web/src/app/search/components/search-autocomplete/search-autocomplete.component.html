@@ -1,25 +1,30 @@
 <!-- Input Field seearch bar (Text Field) -->
 <div class="autocomplete-wrapper">
-<div id="u23_div" class="ax_default swift_label" data-label="Input Field seearch bar">
-  <input id="u24_input" type="text" [(ngModel)]="counterPartyText" maxlength="128"
-    (keyup)="onSearchCounterparty($event)" autocomplete="off" />
-  <ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
-    *ngIf="counterPartyAutocompleteResults && counterPartyAutocompleteResults.length>0"
-    [ngClass]="counterPartyAutocompleteResults.length > 0 ? 'open' : ''">
-    <li class="ui-menu-item" *ngFor="let counterparty of counterPartyAutocompleteResults"
-      (click)="getCounterPartyResults(counterparty.institutionName)" style="cursor: pointer;">
-      <div id="ui-id-35" tabindex="-1" class="ui-menu-item-wrapper">{{counterparty.bicCode}} -
-        {{counterparty.institutionName}}</div>
-    </li>
-  </ul>
-</div>
-
-<!-- Unnamed (Rectangle) -->
-<div id="u25" class="ax_default swift_primary_button" style="cursor: pointer;"
-  (click)="searchClicked.emit(counterPartyText)">
-  <div id="u25_div" class=""></div>
-  <div id="u25_text" class="text ">
-    <p><span>Search</span></p>
+  <div id="u23_div" class="ax_default swift_label" data-label="Input Field seearch bar">
+    <input id="u24_input" type="text" [(ngModel)]="counterPartyText" maxlength="128"
+      (keyup)="onSearchCounterparty($event)" autocomplete="off" />
+    <ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+      *ngIf="(counterPartyAutocompleteResultsByCode && counterPartyAutocompleteResultsByCode.length>0) || (counterPartyAutocompleteResultsByName && counterPartyAutocompleteResultsByName.length>0)"
+      [ngClass]="counterPartyAutocompleteResultsByCode.length > 0 || counterPartyAutocompleteResultsByName.length > 0 ? 'open' : ''">
+      <li class="ui-menu-item" *ngFor="let counterparty of counterPartyAutocompleteResultsByCode"
+        (click)="getCounterPartyResults(counterparty.bicCode, 'code')" style="cursor: pointer;">
+        <div id="ui-id-35" tabindex="-1" class="ui-menu-item-wrapper">{{counterparty.bicCode}}</div>
+      </li>
+      <li class="ui-menu-item" *ngFor="let counterparty of counterPartyAutocompleteResultsByName"
+        (click)="getCounterPartyResults(counterparty.institutionName, 'name')" style="cursor: pointer;">
+        <div id="ui-id-35" tabindex="-1" class="ui-menu-item-wrapper">{{counterparty.institutionName}}</div>
+      </li>
+    </ul>
+    <div class="ax_default shape2 clear_autocomplete" (click)="clearCounterPartyText()" *ngIf="fromPage === 'results' && counterPartyText!.length>3" style="cursor: pointer;">
+      <img class="img " src="assets/images/no_results/u63.png" tabindex="0" style="outline: none;">
+    </div>
   </div>
-</div>
+
+  <!-- Unnamed (Rectangle) -->
+  <div id="u25" class="ax_default swift_primary_button" style="cursor: pointer;" (click)="clickedOnSearch()">
+    <div id="u25_div" class=""></div>
+    <div id="u25_text" class="text ">
+      <p><span>Search</span></p>
+    </div>
+  </div>
 </div>

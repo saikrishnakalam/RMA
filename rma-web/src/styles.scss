@@ -20,11 +20,10 @@ body {
   width:0px;
   height:0px;
 }
-#u3_div {
+.side_nav {
   border-width:0px;
-  position:absolute;
+  position:relative;
   left:0px;
-  top:0px;
   width:312px;
   height:1297px;
   background:inherit;
@@ -36,6 +35,7 @@ body {
   box-shadow:none;
   color:#5A4E48;
   text-align:right;
+  float: left;
 }
 #u3 {
   border-width:0px;

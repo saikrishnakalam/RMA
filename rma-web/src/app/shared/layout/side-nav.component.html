@@ -1,21 +1,22 @@
-<div id="u3" class="ax_default swift_box_2">
-  <div id="u3_div" class=""></div>
-</div>
-<div id="u5" class="ax_default swift_label" data-label="Users" style="cursor: pointer;">
-  <div id="u5_div" class="" tabindex="0"></div>
-  <div id="u5_text" class="text ">
-    <p id="cache2" style=""><span id="cache3" style="">Reports</span></p>
+<div class="side_nav">
+  <div [routerLink]="'/search'" #search="routerLinkActive" routerLinkActive id="{{search.isActive ? 'u8': 'u4'}}"
+    [routerLinkActiveOptions]="{exact: true}" class="ax_default swift_label" data-label="Search"
+    style="cursor: pointer;">
+    <div id="{{search.isActive ? 'u8_div': 'u4_div'}}" class="" tabindex="0"></div>
+    <div id="{{search.isActive ? 'u8_text': 'u4_text'}}" class="text ">
+      <p><span>Search</span></p>
+    </div>
   </div>
-</div>
-<div id="u6" class="ax_default swift_label" data-label="Users" style="cursor: pointer;">
-  <div id="u6_div" class="" tabindex="0"></div>
-  <div id="u6_text" class="text ">
-    <p id="cache0" style=""><span id="cache1" style="">Distribution files</span></p>
+  <div id="u5" class="ax_default swift_label" data-label="Users" style="cursor: pointer;">
+    <div id="u5_div" class="" tabindex="0"></div>
+    <div id="u5_text" class="text ">
+      <p id="cache2" style=""><span id="cache3" style="">Reports</span></p>
+    </div>
   </div>
-</div>
-<div [routerLink]="'/search'" #search="routerLinkActive" routerLinkActive id="{{search.isActive ? 'u8': 'u4'}}" [routerLinkActiveOptions]="{exact: true}" class="ax_default swift_label" data-label="Search" style="cursor: pointer;">
-  <div id="{{search.isActive ? 'u8_div': 'u4_div'}}" class="" tabindex="0"></div>
-  <div id="{{search.isActive ? 'u8_text': 'u4_text'}}" class="text ">
-    <p><span>Search</span></p>
+  <div id="u6" class="ax_default swift_label" data-label="Users" style="cursor: pointer;">
+    <div id="u6_div" class="" tabindex="0"></div>
+    <div id="u6_text" class="text ">
+      <p id="cache0" style=""><span id="cache1" style="">Distribution files</span></p>
+    </div>
   </div>
 </div>

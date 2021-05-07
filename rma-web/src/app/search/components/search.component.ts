@@ -23,11 +23,21 @@ export class SearchComponent implements OnInit {
     this.clickedAdvancedSearch.emit();
   }
 
-  getSearchResults(counterPartyText: string) {
-    console.log(counterPartyText);
-    this.searchService.counterPartyText = counterPartyText;
-    this.searchClicked = true;
-    this.clickedSearch.emit(counterPartyText);
+  getSearchResults(searchObj: any) {
+
+    if (searchObj.counterPartyText.length >= 3) {
+      this.searchService.counterPartyText = searchObj.counterPartyText;
+      if (searchObj.type === "code") {
+        this.searchService.filters.corrBICs = [searchObj.counterPartyText];
+      } else {
+        const counterPartyList = this.searchService.filterCounterPartyListByName(searchObj.counterPartyText);
+        this.searchService.filters.corrBICs = counterPartyList.map((myBic: any) => myBic.bicCode);
+      }
+      console.log(this.searchService.filters);
+      this.searchClicked = true;
+      this.clickedSearch.emit(searchObj.counterPartyText);
+    }
+
   }
 
 }

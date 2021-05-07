@@ -72,12 +72,18 @@ export class SearchService {
 		//return a.bicCode.localeCompare(b.bicCode) || a.institutionName.localeCompare(b.institutionName);
 	}
 	//Filter the counter party bics with given institution name (counter party)
-	filterCounterPartyList(counterParty: string) {
+	filterCounterPartyListByCode(counterParty: string) {
 		if (counterParty === '' || counterParty === null) {
 			return [];
 		}
-		console.log(this.counterPartyBics);
-		return counterParty ? this.counterPartyBics.filter(s => (s.bicCode.toLowerCase().indexOf(counterParty.toLowerCase()) != -1) || (s.institutionName.toLowerCase().indexOf(counterParty.toLowerCase()) != -1))
+		return counterParty ? this.counterPartyBics.filter(s => s.bicCode.toLowerCase().indexOf(counterParty.toLowerCase()) != -1)
+			: [];
+	}
+	filterCounterPartyListByName(counterParty: string) {
+		if (counterParty === '' || counterParty === null) {
+			return [];
+		}
+		return counterParty ? this.counterPartyBics.filter(s => s.institutionName.toLowerCase().indexOf(counterParty.toLowerCase()) != -1)
 			: [];
 	}
 	getStatusByCode(status: string) {
